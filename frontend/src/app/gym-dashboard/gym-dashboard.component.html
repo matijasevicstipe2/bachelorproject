@@ -1,0 +1,8 @@
+<div *ngFor="let gym of gyms" (click)="selectGym(gym)">
+  <div class="gym-card">
+    <h3>{{ gym.name }}</h3>
+    <p>{{ gym.location }}</p>
+    <!-- Add other gym details you want to display -->
+  </div>
+</div>
+

@@ -1,0 +1,45 @@
+<div class="h-100">
+  <div class="container">
+    <div class="row justify-content-center pt-5">
+      <div class="col text-center basic2">
+        <h1 class="display-3 ba text-dark">PowerHouse Fitness</h1>
+        <h3 class="text-uppercase ba text-muted">Unleash Your Full Potential with Our Elite Fitness Experience.</h3>
+      </div>
+    </div>
+    <div class="row justify-content-center ">
+      <div class="col-sm-12 col-md-10 col-lg-6 h-100">
+        <div class="card mt-5 basic">
+          <div class="card-body">
+            <form b #authenticationForm="ngForm" class="form-signin" name="authenticationForm">
+              <div class="text-center mb-4">
+                <h1 class="h3 mb-3 fw-normal">Login to your account</h1>
+              </div>
+              <div class="form-label-group mb-3">
+                <label>Username</label>
+                <input [(ngModel)]="login.username" [disabled]="authenticating"
+                       autocomplete="username" class="form-control" name="username"
+                       placeholder="Enter username" required type="username">
+              </div>
+              <div class="form-label-group">
+                <label>Password</label>
+                <input [(ngModel)]="login.password" [disabled]="authenticating"
+                       autocomplete="current-password" class="form-control" name="password"
+                       placeholder="Enter password" required type="password">
+              </div>
+              <button (click)="buttonLoginClick()" [disabled]="authenticating"
+                      class="btn-custom" type="submit">Login<span
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                *ngIf="authenticating"></span>
+              </button>
+              <button (click)="clearFields()" [disabled]="authenticating"
+                      class="btn-custom2" type="submit">Cancel
+              </button>
+              <div class="text-danger mt-2" *ngIf="authenticationError">Login failed! Check your credentials and try again.</div>
+              <p class="subtitle">You don't have an account yet? <a href="/signup">Join now</a>.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
