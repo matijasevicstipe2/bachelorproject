@@ -11,51 +11,53 @@
       <div class="col-sm-12 col-md-10 col-lg-6 h-100">
         <div class="card mt-5 basic">
           <div class="card-body">
-            <form (submit)="onSubmit()" class="form-signin" name="authenticationForm">
+            <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="form-signin" name="authenticationForm">
               <div class="form-group">
-              <label for="firstname">First Name</label>
-              <input type="text" id="firstname" class="form-control" [(ngModel)]="account.firstname" name="firstname" required>
-            </div>
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" class="form-control" formControlName="firstname" required>
+              </div>
               <div class="form-group">
                 <label for="lastname">Last Name</label>
-                <input type="text" id="lastname" class="form-control" [(ngModel)]="account.lastname" name="lastname" required>
+                <input type="text" id="lastname" class="form-control" formControlName="lastname" required>
               </div>
               <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" [(ngModel)]="account.username" name="username" required>
+                <input type="text" id="username" class="form-control" formControlName="username" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" formControlName="email" required>
+                <div *ngIf="accountForm.get('email')?.invalid && (accountForm.get('email')?.dirty || accountForm.get('email')?.touched)" class="text-danger">
+                  <div *ngIf="accountForm.get('email')?.errors?.['required']">Email is required.</div>
+                  <div *ngIf="accountForm.get('email')?.errors?.['email']">Invalid email format.</div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" [(ngModel)]="account.password" name="password" required>
+                <input type="password" id="password" class="form-control" formControlName="password" required>
               </div>
               <div class="form-group">
                 <label for="birthdate">Birthdate</label>
-                <input type="date" id="birthdate" class="form-control" [(ngModel)]="account.birthdate" name="birthdate" required>
+                <input type="date" id="birthdate" class="form-control" formControlName="birthdate" required>
               </div>
               <div class="form-group">
                 <label for="sex">Sex</label>
-                <select id="sex" class="form-control" [(ngModel)]="account.sex" name="sex" required>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                <select id="sex" class="form-control" formControlName="sex" required>
+                  <option value="m">Male</option>
+                  <option value="f">Female</option>
+                  <option value="o">Other</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" class="form-control" [(ngModel)]="account.city" name="city" required>
+                <label for="address">Address</label>
+                <input type="text" id="address" class="form-control" formControlName="address">
               </div>
               <div class="form-group">
-                <label for="citystate">City State</label>
-                <input type="text" id="citystate" class="form-control" [(ngModel)]="account.citystate" name="citystate" required>
+                <label for="cityState">City State</label>
+                <input type="text" id="cityState" class="form-control" formControlName="cityState">
               </div>
-              <div class="form-group">
-                <label for="country">Country</label>
-                <input type="text" id="country" class="form-control" [(ngModel)]="account.country" name="country" required>
-              </div>
-              <button type="submit" class="btn-custom">Create Account</button>
-              <button (click)="clearFields()"
-                      class="btn-custom2" type="submit">Cancel
-              </button>
+              <button type="submit" [disabled]="accountForm.invalid" class="btn-custom">Create Account</button>
+              <button (click)="clearFields()" class="btn-custom2" type="button">Cancel</button>
             </form>
           </div>
         </div>

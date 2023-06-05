@@ -13,5 +13,5 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthenticationResponse {
-  private String token;
+  private String jwt;
 }

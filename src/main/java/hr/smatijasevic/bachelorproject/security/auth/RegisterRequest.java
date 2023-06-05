@@ -24,23 +24,19 @@ public class RegisterRequest {
   @NotBlank(message = "Username is required")
   private String username;
 
+  @NotBlank(message = "Email is required")
+  private String email;
+
   @NotBlank(message = "Password is required")
   private String password;
 
   @NotNull(message = "Birthdate is required")
   private Date birthdate;
 
-  private String address;
-
-  @NotBlank(message = "City is required")
-  private String city;
-
-  @NotBlank(message = "City state is required")
-  private String cityState;
-
-  @NotBlank(message = "Country is required")
-  private String country;
-
   @NotBlank(message = "Sex is required")
   private String sex;
+
+  private String address;
+
+  private String cityState;
 }

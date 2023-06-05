@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.NoSuchAlgorithmException;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/account")
-  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) {
+  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws NoSuchAlgorithmException {
     return ResponseEntity.status(HttpStatus.CREATED)
                          .body(service.register(request));
   }

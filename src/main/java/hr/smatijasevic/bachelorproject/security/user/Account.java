@@ -32,22 +32,21 @@ public class Account implements UserDetails {
   private String lastName;
 
   private String username;
+  private String email;
 
   private String password;
 
   private Date birthdate;
+  private String sex;
 
   private String address;
-
-  private String city;
 
   @Column(name = "citystate")
   private String cityState;
 
-  private String country;
-
-  @Column(name = "sex")
-  private String sex;
+  @Lob
+  @Column(name = "profilepicture")
+  private byte[] profilePicture;
 
   @JsonIgnore
   @ManyToMany
@@ -90,6 +89,7 @@ public class Account implements UserDetails {
     return true;
   }
 
+
   public Integer getId() {
     return id;
   }
@@ -118,6 +118,14 @@ public class Account implements UserDetails {
     this.username = username;
   }
 
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   public void setPassword(String password) {
     this.password = password;
   }
@@ -130,20 +138,20 @@ public class Account implements UserDetails {
     this.birthdate = birthdate;
   }
 
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
   public String getAddress() {
     return address;
   }
 
   public void setAddress(String address) {
     this.address = address;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city = city;
   }
 
   public String getCityState() {
@@ -154,20 +162,12 @@ public class Account implements UserDetails {
     this.cityState = cityState;
   }
 
-  public String getCountry() {
-    return country;
+  public byte[] getProfilePicture() {
+    return profilePicture;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
-  public String getSex() {
-    return sex;
-  }
-
-  public void setSex(String sex) {
-    this.sex = sex;
+  public void setProfilePicture(byte[] profilePicture) {
+    this.profilePicture = profilePicture;
   }
 
   @Override

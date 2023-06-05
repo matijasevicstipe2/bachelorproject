@@ -11,6 +11,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Optional;
 
 
@@ -21,35 +26,29 @@ public class AuthenticationService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
-  public static final String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  private static final int SALT_LENGTH = 16;
 
-  public RegisterResponse register(RegisterRequest request) {
+  public RegisterResponse register(RegisterRequest request) throws NoSuchAlgorithmException {
     Optional<Account> account = repository.findByUsername(request.getUsername());
     if (account.isPresent()) {
       return new RegisterResponse();
     }
 
-    String password = generatePassword(8);
-
     Account acc = Account.builder()
+            .firstName(request.getFirstname())
+            .lastName(request.getLastname())
             .username(request.getUsername())
-            .password(passwordEncoder.encode(password))
+            .email(request.getEmail())
+            .password(passwordEncoder.encode(request.getPassword()))
+            .birthdate(request.getBirthdate())
+            .sex(request.getSex())
+            .address(request.getAddress())
+            .cityState(request.getCityState())
             .build();
 
     repository.save(acc);
 
-    return new RegisterResponse();
-  }
-
-  private String generatePassword(int length) {
-    final StringBuilder password = new StringBuilder("");
-
-    for (int i = 0; i < length; i++) {
-      int index = (int) (Math.random() * ALLOWED_CHARACTERS.length());
-      password.append(ALLOWED_CHARACTERS.charAt(index));
-    }
-
-    return password.toString();
+    return new RegisterResponse(acc.getUsername());
   }
 
   public Optional<ResponseEntity<AuthenticationResponse>> authenticate(AuthenticationRequest request) {
@@ -67,7 +66,7 @@ public class AuthenticationService {
     String jwtToken = jwtService.generateToken(acc.get());
 
     return Optional.of(ResponseEntity.ok(AuthenticationResponse.builder()
-        .token(jwtToken)
+        .jwt(jwtToken)
         .build()));
   }
 }

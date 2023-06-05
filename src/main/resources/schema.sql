@@ -12,11 +12,10 @@ CREATE TABLE IF NOT EXISTS accounts (
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    birthdate DATE,
-    sex VARCHAR(1),
-    address VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    citystate VARCHAR(255) NOT NULL,
+    birthdate DATE NOT NULL,
+    sex VARCHAR(1) NOT NULL,
+    address VARCHAR(255),
+    citystate VARCHAR(255),
     profilepicture BLOB,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

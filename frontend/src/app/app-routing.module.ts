@@ -12,7 +12,6 @@ const routes: Routes = [
   { path: 'gym', component: GymDashboardComponent},
   { path: 'gym-dashboard', component: GymDashboardComponent},
   { path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomeComponent, canActivate: [LoggedInGuard]},
   {path: 'forbidden', component: ForbiddenPageComponent},

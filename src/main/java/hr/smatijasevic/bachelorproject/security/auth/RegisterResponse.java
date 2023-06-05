@@ -12,5 +12,5 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterResponse {
-    private String message;
+    private String username;
 }
