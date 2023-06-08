@@ -1,4 +1,4 @@
-package hr.smatijasevic.bachelorproject.entity;
+package hr.smatijasevic.bachelorproject.gym;
 import jakarta.persistence.*;
 
 @Entity

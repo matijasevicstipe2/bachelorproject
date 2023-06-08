@@ -1,7 +1,5 @@
-package hr.smatijasevic.bachelorproject.controller;
+package hr.smatijasevic.bachelorproject.gym;
 
-import hr.smatijasevic.bachelorproject.entity.Gym;
-import hr.smatijasevic.bachelorproject.service.GymService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,7 +1,8 @@
-package hr.smatijasevic.bachelorproject.service;
+package hr.smatijasevic.bachelorproject.gym;
 
-import hr.smatijasevic.bachelorproject.entity.Gym;
-import hr.smatijasevic.bachelorproject.repository.GymRepository;
+import hr.smatijasevic.bachelorproject.gym.Gym;
+import hr.smatijasevic.bachelorproject.gym.GymRepository;
+import hr.smatijasevic.bachelorproject.gym.GymService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

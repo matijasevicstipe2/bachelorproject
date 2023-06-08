@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
+  <div class="form-group">
+    <label for="cardNumber">Card Number</label>
+    <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber" required>
+  </div>
+  <div class="form-group">
+    <label for="expiry">Expiration Date</label>
+    <input type="text" id="expiry" class="form-control" formControlName="expiry" required>
+  </div>
+  <div class="form-group">
+    <label for="cvc">CVC</label>
+    <input type="text" id="cvc" class="form-control" formControlName="cvc" required>
+  </div>
+  <button type="submit" [disabled]="!paymentForm.valid || submitting">Submit Payment</button>
+</form>

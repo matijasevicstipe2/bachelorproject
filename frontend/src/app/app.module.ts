@@ -9,13 +9,16 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
 import { RegisterComponent } from './register/register.component';
+import {NgxStripeModule} from "ngx-stripe";
+import { PaymentFormComponent } from './payment-form/payment-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GymDashboardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PaymentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u')
   ],
   providers: [],
   bootstrap: [AppComponent]
