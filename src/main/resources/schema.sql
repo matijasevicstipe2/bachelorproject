@@ -5,6 +5,14 @@ CREATE TABLE IF NOT EXISTS gyms (
     citystate VARCHAR(255) NOT NULL
     );
 
+CREATE TABLE membership_option (
+   id BIGINT PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(255) NOT NULL,
+   description VARCHAR(255) NOT NULL,
+   fee DECIMAL(10, 2) NOT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS accounts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(255) NOT NULL,
@@ -24,10 +32,10 @@ create table if not exists authority (
     id identity,
     authority_name varchar(100) not null unique
     );
+
 create table if not exists user_authority (
     user_id bigint not null,
     authority_id bigint not null,
     constraint fk_user foreign key (user_id) references accounts(id),
     constraint fk_authority foreign key (authority_id) references authority(id)
     );
-

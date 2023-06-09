@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200")
 public class GymController {
 
     private final GymService gymService;

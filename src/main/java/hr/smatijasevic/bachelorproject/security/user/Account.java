@@ -49,7 +49,7 @@ public class Account implements UserDetails {
   private byte[] profilePicture;
 
   @JsonIgnore
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "USER_AUTHORITY",
           joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},

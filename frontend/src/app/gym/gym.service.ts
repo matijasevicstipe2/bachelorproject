@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class GymService {
 
-  private apiUrl = 'http://localhost:8080/api/gyms'; // Replace with the actual path to your gym API endpoint
+  private apiUrl = 'http://localhost:8080/api/gyms';
 
   constructor(private http: HttpClient) { }
 

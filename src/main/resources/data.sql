@@ -24,3 +24,26 @@ INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Mid
 
 INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - South Beach', '123 Ocean Drive', 'Miami, FL');
 INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Downtown', '456 Biscayne Boulevard', 'Miami, FL');
+
+INSERT INTO membership_option (name, description, fee)
+VALUES ('30 Days Trial', '30-days trail for new members', 50);
+
+INSERT INTO membership_option (name, description, fee)
+VALUES ('Monthly Fee (No Contract)', 'Monthly fee without contract', 50);
+
+INSERT INTO membership_option (name, description, fee)
+VALUES ('Yearly Fee (No Contract)', 'Yearly fee without contract', 450);
+
+INSERT INTO membership_option (name, description, fee)
+VALUES ('Monthly Fee (6 Months Contract)', 'Monthly fee with contract for 6 months', 35);
+
+INSERT INTO membership_option (name, description, fee)
+VALUES ('Monthly Fee (12 Months Contract)', 'Monthly fee with contract for 12 months', 25);
+
+INSERT INTO accounts (firstname, lastname, username, email, password, birthdate, sex, address, citystate)
+VALUES ('John', 'Doe', 'user', 'johndoe@example.com', '$2a$10$WClhdH/ZXS6MWlwFvGMfkeWKdVKWpWAUjikCjgZh.As4IYJBGUm7O', '1990-01-01', 'M', '123 Main St', 'City, State');
+
+INSERT INTO authority (id, authority_name)
+VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
+INSERT INTO user_authority (user_id, authority_id)
+VALUES (1, 2);

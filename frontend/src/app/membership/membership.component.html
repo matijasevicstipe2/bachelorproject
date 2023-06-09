@@ -1,0 +1,10 @@
+<div class="membership-options">
+  <div *ngFor="let option of membershipOptions" class="membership-option">
+    <div class="option-details">
+      <h3>{{ option.name }}</h3>
+      <p class="option-fee">{{option.fee}}</p>
+    </div>
+    <p>{{ option.description }}</p>
+    <button [routerLink]="['/payment', option.id]" [disabled]="!true">Select</button>
+  </div>
+</div>

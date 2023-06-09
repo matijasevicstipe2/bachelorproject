@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
   private final AuthenticationService service;
