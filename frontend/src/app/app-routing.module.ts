@@ -12,10 +12,12 @@ import {FindGymComponent} from "./find-gym/find-gym.component";
 import {MembershipComponent} from "./membership/membership.component";
 import {OneOnOneTrainingComponent} from "./one-on-one-training/one-on-one-training.component";
 import {GroupClassesComponent} from "./group-classes/group-classes.component";
+import {PaymentFormComponent} from "./payment-form/payment-form.component";
 
 const routes: Routes = [
   { path: 'gym', component: GymDashboardComponent},
   { path: 'gym-dashboard', component: GymDashboardComponent},
+  { path: 'payment/:id', component: PaymentFormComponent, canActivate: [LoggedInGuard] },
   { path: 'stats', component: StatsComponent, canActivate: [LoggedInGuard]},
   { path: 'find-gym', component: FindGymComponent, canActivate: [LoggedInGuard]},
   { path: 'one-on-one-training', component: OneOnOneTrainingComponent, canActivate: [LoggedInGuard]},

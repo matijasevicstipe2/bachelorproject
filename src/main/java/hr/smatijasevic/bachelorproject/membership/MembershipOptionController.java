@@ -13,37 +13,47 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class MembershipOptionController {
-    private final MembershipOptionRepository membershipOptionRepository;
+    private final MembershipOptionService membershipOptionService;
 
     @GetMapping
     public ResponseEntity<List<MembershipOption>> getAllMembershipOptions() {
-        List<MembershipOption> options = membershipOptionRepository.findAll();
+        List<MembershipOption> options = membershipOptionService.findAll();
         return ResponseEntity.ok(options);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MembershipOption> getMembershipOption(@PathVariable("id") Long id) {
+        MembershipOption membershipOption = membershipOptionService.getMembershipOptionById(id);
+        if (membershipOption != null) {
+            return ResponseEntity.ok(membershipOption);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<MembershipOption> createMembershipOption(@RequestBody MembershipOption membershipOption) {
-        MembershipOption createdMembershipOption = membershipOptionRepository.save(membershipOption);
+        MembershipOption createdMembershipOption = membershipOptionService.save(membershipOption);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMembershipOption);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MembershipOption> updateMembershipOption(
             @PathVariable Long id, @RequestBody MembershipOption membershipOption) {
-        MembershipOption existingMembershipOption = membershipOptionRepository.findById(id)
+        MembershipOption existingMembershipOption = membershipOptionService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Membership Option not found with id: " + id));
 
         existingMembershipOption.setName(membershipOption.getName());
         existingMembershipOption.setDescription(membershipOption.getDescription());
         existingMembershipOption.setFee(membershipOption.getFee());
 
-        MembershipOption updatedMembershipOption = membershipOptionRepository.save(existingMembershipOption);
+        MembershipOption updatedMembershipOption = membershipOptionService.save(existingMembershipOption);
         return ResponseEntity.ok(updatedMembershipOption);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMembershipOption(@PathVariable Long id) {
-        membershipOptionRepository.deleteById(id);
+        membershipOptionService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
