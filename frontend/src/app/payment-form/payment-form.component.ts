@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Stripe, StripeCardElement, StripeElements, loadStripe } from '@stripe/stripe-js';
 import { ActivatedRoute } from '@angular/router';
 import { MembershipOption } from "../membership/membership-option";
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-payment-form',
@@ -11,10 +12,7 @@ import { MembershipOption } from "../membership/membership-option";
   styleUrls: ['./payment-form.component.css']
 })
 export class PaymentFormComponent implements OnInit {
-  stripe!: Stripe | null;
   paymentForm!: FormGroup;
-  elements!: StripeElements;
-  card!: StripeCardElement | undefined;
   submitting: boolean = false;
   optionId!: number;
   private amount!: number;
@@ -27,11 +25,12 @@ export class PaymentFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.paymentForm = new FormGroup({
-      cardNumber: new FormControl('', Validators.required),
-      expiry: new FormControl('', Validators.required),
-      cvc: new FormControl('', Validators.required)
+    this.paymentForm = this.fb.group({
+      cardNumber: ['', Validators.required],
+      expiry: ['', Validators.required],
+      cvc: ['', Validators.required]
     });
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       this.optionId = id ? +id : 0;
@@ -47,80 +46,57 @@ export class PaymentFormComponent implements OnInit {
         console.error(error);
       }
     );
-    const publishableKey = 'pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u';
-    loadStripe(publishableKey).then((stripe) => {
-      this.stripe = stripe;
-      this.setupStripeElements();
-    });
   }
 
-  private setupStripeElements() {
-    const elements = this.stripe?.elements();
-    const style = {
-      base: {
-        fontSize: '16px',
-        color: '#32325d',
-      }
-    };
+  formatExpiryDate(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let formattedValue = input.value.replace(/\D/g, '');
 
-    const cardElement = elements?.create('card', { style });
+    if (formattedValue.length > 2) {
+      formattedValue = formattedValue.replace(/(\d{2})(\d{2})/, '$1/$2');
+    }
 
-    this.card = cardElement;
-
-    // Handle card element changes and validation
-    this.card?.on('change', (event) => {
-      // Handle validation errors
-      // e.g., this.showError(event.error?.message);
-    });
+    input.value = formattedValue;
   }
-
-  // ...
 
   onSubmit() {
     const cardNumber = this.paymentForm.get('cardNumber')?.value;
     const expiry = this.paymentForm.get('expiry')?.value;
+    const [expMonth, expYear] = expiry.split('/').map((item: string) => item.trim());
+
+
     const cvc = this.paymentForm.get('cvc')?.value;
 
-    if (cardNumber && expiry && cvc) {
-      const cardData = {
-        card: {
-          number: cardNumber,
-          exp_month: expiry.split('-')[1],
-          exp_year: expiry.split('-')[0],
-          cvc: cvc
-        }
-      };
+    (<any>window).Stripe.card.createToken({
+      number: cardNumber.value,
+      exp_month: expMonth.value,
+      exp_year: expYear.value,
+      cvc: cvc.value
+    }, (status: number, response: any) => {
+      if (status === 200) {
+        const token = response.id;
+        const amount = this.amount;
+        const currency = 'USD';
+        const description = 'payment';
 
-      this.stripe?.createToken(cardData).then((result) => {
-        if (result.error) {
-          // Handle error
-          console.error(result.error);
-        } else {
-          // Send the token to your backend
-          const token = result.token.id;
-          const amount = this.amount;
-          const currency = '$' /* specify the payment currency */;
-          const description = 'des' /* specify the payment description */;
-
-          const paymentRequest = {
-            token,
-            amount,
-            currency,
-            description
-          };
-
-          this.http.post(this.backendUrl + '/api/pay', paymentRequest).subscribe(
-            (response) => {
-              // Payment successful
-              console.log('Payment successful:', response);
-            },
-            (error) => {
-              // Payment error
-              console.error('Payment error:', error);
-            }
-          );
-        }
-      });
-    }
+        const paymentRequest = {
+          token,
+          amount,
+          currency,
+          description
+        };
+        this.chargeCard(paymentRequest);
+      } else {
+        console.log(response.error.message);
+      }
+    });
   }
+
+  chargeCard(paymentRequest: any) {
+    this.http.post(this.backendUrl + '/api/pay', paymentRequest)
+      .subscribe(resp => {
+        console.log(resp);
+      })
+  }
+
 }

@@ -17,6 +17,8 @@ import { FindGymComponent } from './find-gym/find-gym.component';
 import { GroupClassesComponent } from './group-classes/group-classes.component';
 import { OneOnOneTrainingComponent } from './one-on-one-training/one-on-one-training.component';
 import {AuthenticationInterceptor} from "./security/authentication.interceptor";
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {AuthenticationInterceptor} from "./security/authentication.interceptor";
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
-    NgxStripeModule.forRoot('pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u')
+    HttpClientModule,
+    NgxStripeModule.forRoot('pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u'),
+    NoopAnimationsModule
   ],
   providers: [
     {

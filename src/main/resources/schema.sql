@@ -39,3 +39,12 @@ create table if not exists user_authority (
     constraint fk_user foreign key (user_id) references accounts(id),
     constraint fk_authority foreign key (authority_id) references authority(id)
     );
+
+CREATE TABLE IF NOT EXISTS user_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    account_id INT NOT NULL,
+    membership_option_id BIGINT NOT NULL,
+    payment_date DATE,
+    FOREIGN KEY (account_id) REFERENCES accounts (id),
+    FOREIGN KEY (membership_option_id) REFERENCES membership_option (id)
+);
