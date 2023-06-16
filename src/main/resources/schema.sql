@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS user_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account_id INT NOT NULL,
     membership_option_id BIGINT NOT NULL,
-    payment_date DATE,
+    payment_date DATE NOT NULL,
+    usage INT NOT NULL,
     FOREIGN KEY (account_id) REFERENCES accounts (id),
     FOREIGN KEY (membership_option_id) REFERENCES membership_option (id)
 );

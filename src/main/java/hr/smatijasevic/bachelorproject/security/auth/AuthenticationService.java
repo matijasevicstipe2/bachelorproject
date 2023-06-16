@@ -4,6 +4,8 @@ package hr.smatijasevic.bachelorproject.security.auth;
 import hr.smatijasevic.bachelorproject.security.config.JwtService;
 import hr.smatijasevic.bachelorproject.security.user.Account;
 import hr.smatijasevic.bachelorproject.security.user.AccountRepository;
+import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
+import hr.smatijasevic.bachelorproject.userdetails.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +17,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -23,6 +27,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationService {
   private final AccountRepository repository;
+  private  final UserDetailsRepository detailsRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
@@ -46,7 +51,13 @@ public class AuthenticationService {
             .cityState(request.getCityState())
             .build();
 
+    UserDetails userDetails = UserDetails.builder()
+            .account(acc)
+            .usage(0)
+            .build();
+
     repository.save(acc);
+    detailsRepository.save(userDetails);
 
     return new RegisterResponse(acc.getUsername());
   }
