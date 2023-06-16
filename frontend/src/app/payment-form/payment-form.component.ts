@@ -5,6 +5,7 @@ import { Stripe, StripeCardElement, StripeElements, loadStripe } from '@stripe/s
 import { ActivatedRoute } from '@angular/router';
 import { MembershipOption } from "../membership/membership-option";
 import { HttpHeaders } from '@angular/common/http';
+import {AuthenticationService} from "../security/authentication.service";
 
 @Component({
   selector: 'app-payment-form',
@@ -21,7 +22,8 @@ export class PaymentFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -78,12 +80,16 @@ export class PaymentFormComponent implements OnInit {
         const amount = this.amount;
         const currency = 'USD';
         const description = 'payment';
+        const username = this.authService.getAuthenticatedUserUsername();
+        const option = this.optionId;
 
         const paymentRequest = {
           token,
           amount,
           currency,
-          description
+          description,
+          username,
+          option
         };
         this.chargeCard(paymentRequest);
       } else {

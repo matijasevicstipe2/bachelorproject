@@ -4,6 +4,8 @@ import com.stripe.Stripe;
 import com.stripe.exception.*;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
+import hr.smatijasevic.bachelorproject.membership.MembershipOption;
+import hr.smatijasevic.bachelorproject.membership.MembershipOptionService;
 import hr.smatijasevic.bachelorproject.security.user.Account;
 import hr.smatijasevic.bachelorproject.security.user.AccountRepository;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
@@ -27,6 +29,8 @@ public class PaymentController {
 
     private final AccountRepository accountRepository;
     private final UserDetailsService userDetailsService;
+    private final MembershipOptionService membershipOptionService;
+
     @Value("${stripe.secretKey}")
     private String stripeSecretKey;
 
@@ -37,12 +41,15 @@ public class PaymentController {
         Long amount = paymentRequest.getAmount();
         String currency = paymentRequest.getCurrency();
         String description = paymentRequest.getDescription();
-        String email = paymentRequest.getEmail();
+        String username = paymentRequest.getUsername();
+        Long option = paymentRequest.getOption();
 
         Stripe.apiKey = stripeSecretKey;
 
+        Optional<Account> acc = accountRepository.findByUsername(username);
+        MembershipOption membershipOption = membershipOptionService.getMembershipOptionById(option);
         Map<String, Object> customerParams = new HashMap<>();
-        customerParams.put("email", email);
+        customerParams.put("email", acc.get().getEmail());
         customerParams.put("source", token);
         Customer customer = Customer.create(customerParams);
         System.out.println(customer);
@@ -50,11 +57,12 @@ public class PaymentController {
         try {
             Charge charge = chargeCustomerCard(customer.getId(), amount, currency, description);
             System.out.println(charge);
-            Optional<Account> acc = accountRepository.findByEmail(email);
             UserDetails user = userDetailsService.getUserDetailsByAccount(acc.get().getId());
+
             user.setPaymentDate(LocalDate.now());
             user.setUsage(user.getUsage() + 1);
-            user.setMembershipOption();
+            user.setMembershipOption(membershipOption);
+
             userDetailsService.saveUserDetails(user);
             return ResponseEntity.ok("Payment successful");
         }  catch (Exception e) {

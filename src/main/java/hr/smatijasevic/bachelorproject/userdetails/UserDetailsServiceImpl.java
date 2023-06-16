@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails getUserDetailsByAccount(int id) {
-        userDetailsRepository.findByAccountId(id);
+        return userDetailsRepository.findByAccountId(id);
     }
 
     @Override
