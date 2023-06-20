@@ -43,9 +43,20 @@ create table if not exists user_authority (
 CREATE TABLE IF NOT EXISTS user_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account_id INT NOT NULL,
-    membership_option_id BIGINT NOT NULL,
-    payment_date DATE NOT NULL,
+    membership_option_id BIGINT,
+    payment_date DATE,
     usage INT NOT NULL,
+    active BOOLEAN NOT NULL,
+    in_gym BOOLEAN,
     FOREIGN KEY (account_id) REFERENCES accounts (id),
     FOREIGN KEY (membership_option_id) REFERENCES membership_option (id)
 );
+
+CREATE TABLE qr_codes (
+    id INT PRIMARY KEY,
+    account_id INT,
+    qr_pass VARCHAR(255) NOT NULL,
+    code BLOB,
+    FOREIGN KEY (account_id) REFERENCES accounts (id)
+);
+

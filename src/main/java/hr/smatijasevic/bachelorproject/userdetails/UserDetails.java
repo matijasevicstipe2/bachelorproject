@@ -29,12 +29,16 @@ public class UserDetails {
     private Account account;
 
     @OneToOne
-    @JoinColumn(name = "membership_option_id", nullable = false)
+    @JoinColumn(name = "membership_option_id")
     private MembershipOption membershipOption;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date")
     private LocalDate paymentDate;
 
     @Column(name = "usage", nullable = false)
     private int usage;
+
+    private boolean active;
+    @Column(name = "in_gym")
+    private boolean inGym;
 }

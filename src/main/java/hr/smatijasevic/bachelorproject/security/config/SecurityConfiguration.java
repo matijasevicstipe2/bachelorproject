@@ -27,7 +27,7 @@ public class SecurityConfiguration {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/auth/**", "/h2-ui/**")
+            .requestMatchers("/auth/**", "/h2-ui/**", "/api/qrdata")
             .permitAll()
             .anyRequest()
             .authenticated()

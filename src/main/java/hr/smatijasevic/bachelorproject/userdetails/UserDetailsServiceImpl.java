@@ -10,7 +10,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDetailsRepository userDetailsRepository;
 
-    @Autowired
     public UserDetailsServiceImpl(UserDetailsRepository userDetailsRepository) {
         this.userDetailsRepository = userDetailsRepository;
     }

@@ -62,6 +62,7 @@ public class PaymentController {
             user.setPaymentDate(LocalDate.now());
             user.setUsage(user.getUsage() + 1);
             user.setMembershipOption(membershipOption);
+            user.setActive(true);
 
             userDetailsService.saveUserDetails(user);
             return ResponseEntity.ok("Payment successful");

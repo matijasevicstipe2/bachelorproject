@@ -1,11 +1,13 @@
 package hr.smatijasevic.bachelorproject.security.auth;
 
+import com.google.zxing.WriterException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -17,7 +19,7 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/account")
-  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws NoSuchAlgorithmException {
+  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws NoSuchAlgorithmException, IOException, WriterException {
     return ResponseEntity.status(HttpStatus.CREATED)
                          .body(service.register(request));
   }
