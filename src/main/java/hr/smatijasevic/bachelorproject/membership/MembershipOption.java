@@ -20,5 +20,7 @@ public class MembershipOption {
     private String name;
     private String description;
     private Long fee;
+    private Integer duration;
+    private String type;
 
 }

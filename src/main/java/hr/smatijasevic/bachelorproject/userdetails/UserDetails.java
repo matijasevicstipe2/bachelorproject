@@ -9,8 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_details")
@@ -33,7 +32,7 @@ public class UserDetails {
     private MembershipOption membershipOption;
 
     @Column(name = "payment_date")
-    private LocalDate paymentDate;
+    private LocalDateTime paymentDate;
 
     @Column(name = "usage", nullable = false)
     private int usage;

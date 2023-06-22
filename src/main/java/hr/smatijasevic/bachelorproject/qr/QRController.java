@@ -1,9 +1,13 @@
 package hr.smatijasevic.bachelorproject.qr;
 
+import hr.smatijasevic.bachelorproject.membership.MembershipOption;
+import hr.smatijasevic.bachelorproject.membership.MembershipOptionService;
 import hr.smatijasevic.bachelorproject.security.user.Account;
 import hr.smatijasevic.bachelorproject.security.user.AccountRepository;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetailsService;
+import hr.smatijasevic.bachelorproject.visits.GymVisit;
+import hr.smatijasevic.bachelorproject.visits.GymVisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +16,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -27,12 +32,14 @@ public class QRController {
     private final QRCodeService qrCodeService;
     private final AccountRepository accountRepository;
     private final UserDetailsService userDetailsService;
+    private final MembershipOptionService membershipOptionService;
+    private final GymVisitService gymVisitService;
 
     @PostMapping("/api/qrdata")
     public String processScannedData(@RequestBody QRDataDto qrDataDto) {
         String decryptedQR = "";
         String data = qrDataDto.getData();
-        LocalDate datetime = qrDataDto.getDatetime();
+        LocalDateTime dateTime = qrDataDto.getDatetime();
         System.out.println("Encrypted data: " + data);
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -58,21 +65,63 @@ public class QRController {
             if (qrCode.isPresent()) {
                 UserDetails details = userDetailsService.getUserDetailsByAccount(acc.getId());
                 if (details.isActive()) {
-                    if (details.getPaymentDate().isBefore(datetime))
-                    if (details.isInGym()) {
-
+                    if (checkMembership(details, dateTime)) {
+                        if (details.isInGym()) {
+                            GymVisit currentVisit = gymVisitService
+                                    .getByAccountAndDate(acc.getId(), LocalDate.now()).get(0);
+                            currentVisit.setExitTime(dateTime);
+                            gymVisitService.saveGymVisit(currentVisit);
+                            details.setInGym(false);
+                            return "GYM EXIT";
+                        } else {
+                            GymVisit currentVisit = GymVisit.builder()
+                                    .account(acc)
+                                    .enterTime(dateTime)
+                                    .build();
+                            gymVisitService.saveGymVisit(currentVisit);
+                            details.setInGym(true);
+                            return "GYM ENTER";
+                        }
+                    } else {
+                        return "You need to renew your membership!";
                     }
                 } else {
-
+                    return "QR Code is not active!";
                 }
+            } else {
+                return "QR Code is invalid!";
             }
         } else {
             return "Username does not exists!";
         }
+    }
 
-
-
-        return "Data processed successfully";
+    private boolean checkMembership(UserDetails details, LocalDateTime dateTime) {
+        MembershipOption membership = details.getMembershipOption();
+        if (membership.getType().equals("T")) {
+            if (membership.getDuration() >= gymVisitService
+                    .getCountByAccountAndEnterTimeAfter(details.getAccount(), details.getPaymentDate())) {
+                return true;
+            } else {
+                details.setActive(false);
+                return false;
+            }
+        } else {
+            if (membership.getDuration() == 365) {
+                if (dateTime.isBefore(details.getPaymentDate().plusYears(1))) {
+                    return true;
+                } else {
+                    details.setActive(false);
+                    return false;
+                }
+            } else {
+                if (dateTime.isBefore(details.getPaymentDate().plusMonths(1))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
     }
 }
 

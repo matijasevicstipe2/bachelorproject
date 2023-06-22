@@ -3,4 +3,6 @@ export interface MembershipOption {
   name: string;
   description: string;
   fee: number;
+  duration: number;
+  type: string;
 }

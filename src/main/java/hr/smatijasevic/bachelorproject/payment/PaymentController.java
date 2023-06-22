@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class PaymentController {
             System.out.println(charge);
             UserDetails user = userDetailsService.getUserDetailsByAccount(acc.get().getId());
 
-            user.setPaymentDate(LocalDate.now());
+            user.setPaymentDate(LocalDateTime.now());
             user.setUsage(user.getUsage() + 1);
             user.setMembershipOption(membershipOption);
             user.setActive(true);

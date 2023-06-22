@@ -9,7 +9,9 @@ CREATE TABLE membership_option (
    id BIGINT PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(255) NOT NULL,
    description VARCHAR(255) NOT NULL,
-   fee DECIMAL(10, 2) NOT NULL
+   fee DECIMAL(10, 2) NOT NULL,
+   duration INT NOT NULL,
+   type VARCHAR(2) NOT NULL
 );
 
 
@@ -44,7 +46,7 @@ CREATE TABLE IF NOT EXISTS user_details (
     id INT AUTO_INCREMENT PRIMARY KEY,
     account_id INT NOT NULL,
     membership_option_id BIGINT,
-    payment_date DATE,
+    payment_date TIMESTAMP,
     usage INT NOT NULL,
     active BOOLEAN NOT NULL,
     in_gym BOOLEAN,
@@ -58,5 +60,13 @@ CREATE TABLE qr_codes (
     qr_pass VARCHAR(255) NOT NULL,
     code BLOB,
     FOREIGN KEY (account_id) REFERENCES accounts (id)
+);
+
+CREATE TABLE IF NOT EXISTS gym_visits (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    account_id BIGINT NOT NULL,
+    enter_time TIMESTAMP NOT NULL,
+    exit_time TIMESTAMP,
+    CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES accounts (id)
 );
 
