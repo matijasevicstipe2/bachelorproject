@@ -1,6 +1,7 @@
 package hr.smatijasevic.bachelorproject.visits;
 
 
+import hr.smatijasevic.bachelorproject.gym.Gym;
 import hr.smatijasevic.bachelorproject.security.user.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ public class GymVisit {
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
+    @ManyToOne
+    @JoinColumn(name = "gym_id")
+    private Gym gym;
 
     @Column(name = "enter_time")
     private LocalDateTime enterTime;

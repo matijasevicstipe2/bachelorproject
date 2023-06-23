@@ -1,9 +1,31 @@
-<div  class="basic">
-  <h2>Available modes</h2>
-  <nav class="navc">
-    <div ><a class="smallb" routerLink="/vhs">VHS</a></div>
-    <div ><a class="button" *ngIf="isUserAdmin" routerLink="/rental">RENTAL</a></div>
-
-  </nav>
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-10 col-lg-6 h-100">
+    <div class="card mt-5 basic">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6">
+            <!-- User profile picture -->
+            <img src="path_to_profile_picture" alt="Profile Picture">
+            <!-- Button for changing profile picture -->
+            <button class="btn btn-primary">Change Picture</button>
+            <!-- Firstname and Lastname -->
+            <h5 class="mt-3">
+              <strong>Firstname Lastname</strong>
+            </h5>
+          </div>
+          <div class="col-6 text-right">
+            <!-- QR code picture -->
+            <img src="path_to_qr_code" alt="QR Code">
+          </div>
+        </div>
+        <hr>
+        <!-- Number of days left in gym -->
+        <p class="text-center">
+          <strong>3 days left in membership</strong>
+        </p>
+        <!-- Name of the membership -->
+        <p class="text-center">Membership: Gold</p>
+      </div>
+    </div>
+  </div>
 </div>
-

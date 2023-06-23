@@ -65,8 +65,24 @@ CREATE TABLE qr_codes (
 CREATE TABLE IF NOT EXISTS gym_visits (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     account_id BIGINT NOT NULL,
+    gym_id BIGINT,
     enter_time TIMESTAMP NOT NULL,
     exit_time TIMESTAMP,
-    CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES accounts (id)
+    CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES accounts (id),
+    FOREIGN KEY (gym_id) REFERENCES gyms (id)
 );
+
+CREATE TABLE IF NOT EXISTS personal_trainers (
+    id INT PRIMARY KEY,
+    firstname VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    availability BOOLEAN NOT NULL,
+    gym_id INT,
+    speciality VARCHAR(255),
+    profile_picture BLOB,
+    FOREIGN KEY (gym_id) REFERENCES gyms (id)
+);
+
 

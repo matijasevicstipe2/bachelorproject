@@ -18,6 +18,7 @@ import { GroupClassesComponent } from './group-classes/group-classes.component';
 import { OneOnOneTrainingComponent } from './one-on-one-training/one-on-one-training.component';
 import {AuthenticationInterceptor} from "./security/authentication.interceptor";
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {HomeComponent} from "./home/home.component";
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     FindGymComponent,
     GroupClassesComponent,
     OneOnOneTrainingComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

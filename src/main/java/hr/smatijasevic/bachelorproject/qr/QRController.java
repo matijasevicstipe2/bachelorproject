@@ -1,5 +1,7 @@
 package hr.smatijasevic.bachelorproject.qr;
 
+import hr.smatijasevic.bachelorproject.gym.Gym;
+import hr.smatijasevic.bachelorproject.gym.GymService;
 import hr.smatijasevic.bachelorproject.membership.MembershipOption;
 import hr.smatijasevic.bachelorproject.membership.MembershipOptionService;
 import hr.smatijasevic.bachelorproject.security.user.Account;
@@ -34,12 +36,15 @@ public class QRController {
     private final UserDetailsService userDetailsService;
     private final MembershipOptionService membershipOptionService;
     private final GymVisitService gymVisitService;
+    private final GymService gymService;
 
     @PostMapping("/api/qrdata")
     public String processScannedData(@RequestBody QRDataDto qrDataDto) {
         String decryptedQR = "";
         String data = qrDataDto.getData();
         LocalDateTime dateTime = qrDataDto.getDatetime();
+        Gym gym = gymService.getGymById(qrDataDto.getGymId());
+
         System.out.println("Encrypted data: " + data);
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -68,7 +73,7 @@ public class QRController {
                     if (checkMembership(details, dateTime)) {
                         if (details.isInGym()) {
                             GymVisit currentVisit = gymVisitService
-                                    .getByAccountAndDate(acc.getId(), LocalDate.now()).get(0);
+                                    .getAccountVisits(acc.getId(), gym.getId(), LocalDate.now()).get(0);
                             currentVisit.setExitTime(dateTime);
                             gymVisitService.saveGymVisit(currentVisit);
                             details.setInGym(false);
@@ -77,6 +82,7 @@ public class QRController {
                             GymVisit currentVisit = GymVisit.builder()
                                     .account(acc)
                                     .enterTime(dateTime)
+                                    .gym(gym)
                                     .build();
                             gymVisitService.saveGymVisit(currentVisit);
                             details.setInGym(true);

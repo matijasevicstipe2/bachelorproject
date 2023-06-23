@@ -38,11 +38,11 @@ public class GymVisitServiceImpl implements GymVisitService {
     }
 
     @Override
-    public List<GymVisit> getByAccountAndDate(Integer accountId, LocalDate date) {
+    public List<GymVisit> getAccountVisits(Integer accountId,Long gymId,  LocalDate date) {
         LocalDateTime startOfDay = LocalDateTime.of(date, LocalTime.MIN);
         LocalDateTime startOfNextDay = LocalDateTime.of(date.plusDays(1), LocalTime.MIN);
         Timestamp startOfDayTimestamp = Timestamp.valueOf(startOfDay);
         Timestamp startOfNextDayTimestamp = Timestamp.valueOf(startOfNextDay);
-        return gymVisitRepository.findByAccountAndDate(accountId, startOfDayTimestamp, startOfNextDayTimestamp);
+        return gymVisitRepository.findAccountVisits(accountId, gymId, startOfDayTimestamp, startOfNextDayTimestamp);
     }
 }
