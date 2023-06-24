@@ -58,7 +58,7 @@ public class PaymentController {
         try {
             Charge charge = chargeCustomerCard(customer.getId(), amount, currency, description);
             System.out.println(charge);
-            UserDetails user = userDetailsService.getUserDetailsByAccount(acc.get().getId());
+            UserDetails user = userDetailsService.getUserDetailsByAccount(acc.get());
 
             user.setPaymentDate(LocalDateTime.now());
             user.setUsage(user.getUsage() + 1);

@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface QRCodeRepository extends JpaRepository<QRCode, Long> {
     Optional<QRCode> findByAccountAndQrPass(Account account, String qrPass);
+    Optional<QRCode> findByAccount(Account account);
 
 }

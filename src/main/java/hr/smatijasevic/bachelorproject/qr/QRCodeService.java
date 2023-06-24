@@ -20,6 +20,7 @@ public interface QRCodeService {
             throws WriterException, IOException;
 
     Optional<QRCode> getQRCodeByAccountAndQrPass(Account account, String qrPass);
+    Optional<QRCode> getQRCodeByAccount(Account account);
 
 }
 

@@ -23,18 +23,18 @@ public class GymVisitServiceImpl implements GymVisitService {
     }
 
     @Override
-    public List<GymVisit> getVisitsByAccountId(Long accountId) {
-        return gymVisitRepository.findByAccountId(accountId);
+    public List<GymVisit> getVisitsByAccountId(Integer accountId) {
+        return gymVisitRepository.findByUser_Account_Id(accountId);
     }
 
     @Override
     public List<GymVisit> getByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime) {
-        return gymVisitRepository.findByAccountAndEnterTimeAfter(account, dateTime);
+        return gymVisitRepository.findByUser_AccountAndEnterTimeAfter(account, dateTime);
     }
 
     @Override
     public int getCountByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime) {
-        return gymVisitRepository.countByAccountAndEnterTimeAfter(account, dateTime);
+        return gymVisitRepository.countByUser_AccountAndEnterTimeAfter(account, dateTime);
     }
 
     @Override

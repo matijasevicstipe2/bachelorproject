@@ -1,8 +1,22 @@
 package hr.smatijasevic.bachelorproject.gym;
+
+import hr.smatijasevic.bachelorproject.groupclass.GroupClass;
+import hr.smatijasevic.bachelorproject.personaltrainer.PersonalTrainer;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "gyms")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Gym {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,46 +30,12 @@ public class Gym {
     @Column(name = "citystate")
     private String cityState;
 
-    // Constructors, getters, and setters
+    @Column(name = "profile_picture_path")
+    private String profilePicturePath;
 
-    public Gym() {
-    }
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PersonalTrainer> personalTrainers = new ArrayList<>();
 
-    public Gym(String gymName, String address, String cityState) {
-        this.gymName = gymName;
-        this.address = address;
-        this.cityState = cityState;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getGymName() {
-        return gymName;
-    }
-
-    public void setGymName(String gymName) {
-        this.gymName = gymName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCityState() {
-        return cityState;
-    }
-
-    public void setCityState(String cityState) {
-        this.cityState = cityState;
-    }
+    @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GroupClass> groupClasses = new ArrayList<>();
 }

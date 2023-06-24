@@ -54,5 +54,10 @@ public class QRCodeServiceImpl implements QRCodeService {
         return qrCodeRepository.findByAccountAndQrPass(account, qrPass);
     }
 
+    @Override
+    public Optional<QRCode> getQRCodeByAccount(Account account) {
+        return qrCodeRepository.findByAccount(account);
+    }
+
 }
 

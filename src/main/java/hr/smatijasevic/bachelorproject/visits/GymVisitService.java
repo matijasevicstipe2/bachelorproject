@@ -11,7 +11,7 @@ import java.util.List;
 public interface GymVisitService {
 
     GymVisit saveGymVisit(GymVisit gymVisit);
-    List<GymVisit> getVisitsByAccountId(Long accountId);
+    List<GymVisit> getVisitsByAccountId(Integer accountId);
     List<GymVisit> getByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     int getCountByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     List<GymVisit> getAccountVisits(Integer accountId, Long gymId, LocalDate date);

@@ -38,7 +38,7 @@ public class QRController {
     private final GymVisitService gymVisitService;
     private final GymService gymService;
 
-    @PostMapping("/api/qrdata")
+    @PostMapping("/qrdata")
     public String processScannedData(@RequestBody QRDataDto qrDataDto) {
         String decryptedQR = "";
         String data = qrDataDto.getData();
@@ -68,9 +68,9 @@ public class QRController {
             Account acc = accOptional.get();
             Optional<QRCode> qrCode = qrCodeService.getQRCodeByAccountAndQrPass(acc, qrPass);
             if (qrCode.isPresent()) {
-                UserDetails details = userDetailsService.getUserDetailsByAccount(acc.getId());
+                UserDetails details = userDetailsService.getUserDetailsByAccount(acc);
                 if (details.isActive()) {
-                    if (checkMembership(details, dateTime)) {
+                    if (checkMembershipValid(details, dateTime)) {
                         if (details.isInGym()) {
                             GymVisit currentVisit = gymVisitService
                                     .getAccountVisits(acc.getId(), gym.getId(), LocalDate.now()).get(0);
@@ -80,7 +80,7 @@ public class QRController {
                             return "GYM EXIT";
                         } else {
                             GymVisit currentVisit = GymVisit.builder()
-                                    .account(acc)
+                                    .user(details)
                                     .enterTime(dateTime)
                                     .gym(gym)
                                     .build();
@@ -102,7 +102,7 @@ public class QRController {
         }
     }
 
-    private boolean checkMembership(UserDetails details, LocalDateTime dateTime) {
+    private boolean checkMembershipValid(UserDetails details, LocalDateTime dateTime) {
         MembershipOption membership = details.getMembershipOption();
         if (membership.getType().equals("T")) {
             if (membership.getDuration() >= gymVisitService
@@ -124,6 +124,7 @@ public class QRController {
                 if (dateTime.isBefore(details.getPaymentDate().plusMonths(1))) {
                     return true;
                 } else {
+                    details.setActive(false);
                     return false;
                 }
             }

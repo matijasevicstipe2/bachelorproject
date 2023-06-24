@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {Title} from "@angular/platform-browser";
 import {AuthenticationService} from "../security/authentication.service";
+import {MembershipOption} from "../membership/membership-option";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
@@ -8,12 +10,22 @@ import {AuthenticationService} from "../security/authentication.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  title = 'Blast from the past! - VHS Rental Shop';
-  isUserAdmin: boolean;
+  membershipOptions: MembershipOption[] = [];
 
-  public constructor(private titleService: Title,
-                     private authenticationService: AuthenticationService) {
-    this.titleService.setTitle('Blast from the Past!');
-    this.isUserAdmin = this.authenticationService.isUserAdmin();
+  private backendUrl = 'http://localhost:8080';
+
+  constructor(private http: HttpClient,
+              private authService: AuthenticationService) { }
+
+  ngOnInit() {
+    this.fetchUserInfo();
+  }
+
+  fetchUserInfo() {
+    const username = this.authService.getAuthenticatedUserUsername():
+    this.http.get<MembershipOption[]>(this.backendUrl + '/api/membership-options')
+      .subscribe(options => {
+        this.membershipOptions = options;
+      });
   }
 }

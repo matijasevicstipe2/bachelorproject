@@ -2,14 +2,13 @@ package hr.smatijasevic.bachelorproject.visits;
 
 
 import hr.smatijasevic.bachelorproject.gym.Gym;
-import hr.smatijasevic.bachelorproject.security.user.Account;
+import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,8 +24,8 @@ public class GymVisit {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @JoinColumn(name = "user_id")
+    private UserDetails user;
     @ManyToOne
     @JoinColumn(name = "gym_id")
     private Gym gym;
@@ -36,4 +35,6 @@ public class GymVisit {
 
     @Column(name = "exit_time")
     private LocalDateTime exitTime;
+    @OneToOne(mappedBy = "gymVisit")
+    private SessionDetails sessionDetails;
 }

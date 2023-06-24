@@ -1,5 +1,6 @@
 package hr.smatijasevic.bachelorproject.userdetails;
 
+import hr.smatijasevic.bachelorproject.security.user.Account;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails getUserDetailsByAccount(int id) {
-        return userDetailsRepository.findByAccountId(id);
+    public UserDetails getUserDetailsByAccount(Account account) {
+        return userDetailsRepository.findByAccount(account);
     }
 
     @Override
