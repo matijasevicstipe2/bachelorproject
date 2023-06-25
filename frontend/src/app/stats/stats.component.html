@@ -6,32 +6,47 @@
         <h5 class="card-title">Gym Stats</h5>
         <p>Days and hours spent:</p>
         <ul>
-          <li>This Week: 5 days, 10 hours</li>
-          <li>This Month: 22 days, 40 hours</li>
-          <li>This Year: 150 days, 300 hours</li>
-          <li>Total: 500 days, 1000 hours</li>
+          <li>This Week: {{ gymStats?.visitsWeek }} days, {{ gymStats?.visitsWeekHours }} hours {{ gymStats?.visitsWeekMin }} minutes</li>
+          <li>This Month: {{ gymStats?.visitsMonth }} days, {{ gymStats?.visitsMonthHours }} hours {{ gymStats?.visitsMonthMin }} minutes</li>
+          <li>This Year: {{ gymStats?.visitsYear }} days, {{ gymStats?.visitsYearHours }} hours {{ gymStats?.visitsYearMin }} minutes</li>
+          <li>Total: {{ gymStats?.visitsTotal }} days, {{ gymStats?.visitsTotalHours }} hours {{ gymStats?.visitsTotalMin }} minutes</li>
         </ul>
       </div>
     </div>
 
-    <!-- Gym sessions -->
+    <!-- Gym visits -->
     <div class="card mt-3">
       <div class="card-body">
-        <h5 class="card-title">Gym Sessions</h5>
+        <h5 class="card-title">Gym Visits</h5>
+        <div class="mb-3">
+          <label for="gymSelect" class="form-label">Select Gym:</label>
+          <select class="form-select" id="gymSelect" [(ngModel)]="selectedGymId" (change)="selectGym($event.target.value)">
+            <option value="" selected>All</option>
+            <option value="1">Gym 1</option>
+            <option value="2">Gym 2</option>
+            <!-- Add more options for each gym -->
+          </select>
+        </div>
         <ul class="list-group">
-          <li class="list-group-item">
+          <li class="list-group-item" *ngFor="let visit of gymVisits; let i = index">
             <div class="d-flex justify-content-between">
               <div>
-                <h6 class="mb-0">Monday, May 1</h6>
-                <small>10:00 AM - 11:30 AM</small>
+                <h6 class="mb-0">{{ visit.enterTime | date:'EEEE, MMMM d' }}</h6>
+                <small>{{ visit.enterTime | date:'h:mm a' }} - {{ visit.exitTime | date:'h:mm a' }}</small>
               </div>
-              <div>
-                <input type="text" class="form-control" placeholder="Session Title">
+              <div *ngIf="editSessionIndex !== i; else editForm">
+                <button class="btn btn-primary" (click)="startEditing(i)">Edit</button>
               </div>
+              <ng-template #editForm>
+                <div>
+                  <input type="text" class="form-control" [(ngModel)]="editedTitle" placeholder="Session Title">
+                  <textarea class="form-control mt-2" rows="3" [(ngModel)]="editedNotes" placeholder="Add notes..."></textarea>
+                  <button class="btn btn-success mt-2" (click)="saveChanges()">Save</button>
+                  <button class="btn btn-secondary mt-2" (click)="cancelEditing()">Cancel</button>
+                </div>
+              </ng-template>
             </div>
-            <textarea class="form-control mt-2" rows="3" placeholder="Add notes..."></textarea>
           </li>
-          <!-- Add more list items for each gym session -->
         </ul>
       </div>
     </div>

@@ -13,7 +13,8 @@ import java.util.List;
 
 @Repository
 public interface GymVisitRepository extends JpaRepository<GymVisit, Long> {
-    List<GymVisit> findByUser_Account_Id(Integer user_account_id);
+    List<GymVisit> findByUser_Account_IdAndGym_Id(Integer account_id, Long gymId);
+    List<GymVisit> findByUser_Account_Id(Integer account_id);
     List<GymVisit> findByUser_AccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     int countByUser_AccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     List<GymVisit> findByUser_AccountAndEnterTime(Account account, LocalDate entryDate);

@@ -25,7 +25,7 @@ public class UserController {
     private final UserDetailsService userDetailsService;
     private final QRCodeService qrCodeService;
     private final GymVisitService gymVisitService;
-    private final int TRIAL_PERIOD = 30;
+
     @GetMapping("/userinfo/{username}")
     public ResponseEntity<UserDto> getUserInfo(@PathVariable String username) {
 

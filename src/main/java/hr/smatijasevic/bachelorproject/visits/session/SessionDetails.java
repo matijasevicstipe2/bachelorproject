@@ -1,5 +1,6 @@
-package hr.smatijasevic.bachelorproject.visits;
+package hr.smatijasevic.bachelorproject.visits.session;
 
+import hr.smatijasevic.bachelorproject.visits.GymVisit;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

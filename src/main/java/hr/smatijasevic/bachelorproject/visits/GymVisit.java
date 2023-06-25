@@ -3,6 +3,7 @@ package hr.smatijasevic.bachelorproject.visits;
 
 import hr.smatijasevic.bachelorproject.gym.Gym;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
+import hr.smatijasevic.bachelorproject.visits.session.SessionDetails;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
