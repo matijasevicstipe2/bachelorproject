@@ -4,31 +4,17 @@
       <div class="card-body">
         <h5 class="card-title">Personal Trainers</h5>
         <ul class="list-group">
-          <!-- Personal Trainer item 1 -->
-          <li class="list-group-item">
+          <li class="list-group-item" *ngFor="let trainer of trainers">
             <div class="d-flex align-items-center">
-              <img src="profile_picture_1.jpg" alt="Trainer Profile Picture" class="mr-3" width="50" height="50">
+              <img [src]="trainer.profilePicture" alt="Trainer Profile Picture" class="mr-3" width="50" height="50">
               <div>
-                <h6 class="mb-0">First Name 1 Last Name 1</h6>
-                <p class="mb-0">Specialty: Area 1</p>
-                <p class="mb-0">Gym: Gym Name 1</p>
+                <h6 class="mb-0">{{ trainer.firstName }} {{ trainer.lastName }}</h6>
+                <p class="mb-0">Specialty: {{ trainer.specialty }}</p>
+                <p class="mb-0">Gym: {{ trainer.gym.name }}</p>
               </div>
-              <button class="btn btn-primary ml-auto" disabled>Not Available</button>
+              <button class="btn btn-primary ml-auto" [disabled]="!trainer.availability" (click)="selectTrainer(trainer)">Select</button>
             </div>
           </li>
-          <!-- Personal Trainer item 2 -->
-          <li class="list-group-item">
-            <div class="d-flex align-items-center">
-              <img src="profile_picture_2.jpg" alt="Trainer Profile Picture" class="mr-3" width="50" height="50">
-              <div>
-                <h6 class="mb-0">First Name 2 Last Name 2</h6>
-                <p class="mb-0">Specialty: Area 2</p>
-                <p class="mb-0">Gym: Gym Name 2</p>
-              </div>
-              <button class="btn btn-primary ml-auto">Select</button>
-            </div>
-          </li>
-          <!-- Add more list items for each personal trainer -->
         </ul>
       </div>
     </div>

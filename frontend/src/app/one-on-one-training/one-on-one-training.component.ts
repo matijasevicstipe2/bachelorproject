@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Trainer} from "./trainer";
+import {TrainerService} from "./trainer.service";
 
 @Component({
   selector: 'app-one-on-one-training',
@@ -6,5 +8,33 @@ import { Component } from '@angular/core';
   styleUrls: ['./one-on-one-training.component.css']
 })
 export class OneOnOneTrainingComponent {
+  trainers: Trainer[] = [];
 
+  constructor(private trainerService: TrainerService) { }
+
+  ngOnInit() {
+    this.fetchTrainers();
+  }
+
+  fetchTrainers() {
+    this.trainerService.getTrainers().subscribe(
+      (response) => {
+        this.trainers = response;
+      },
+      (error) => {
+        console.log('Error occurred while fetching trainers:', error);
+      }
+    );
+  }
+
+  selectTrainer(trainer: Trainer) {
+    this.trainerService.sendEmailToTrainer(trainer).subscribe(
+      () => {
+        console.log('Email sent to trainer:', trainer.email);
+      },
+      (error) => {
+        console.log('Error occurred while sending email to trainer:', error);
+      }
+    );
+  }
 }

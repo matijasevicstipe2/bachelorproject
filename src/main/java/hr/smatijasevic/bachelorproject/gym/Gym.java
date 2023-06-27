@@ -30,6 +30,9 @@ public class Gym {
     @Column(name = "citystate")
     private String cityState;
 
+    @Column(name = "opening_hours")
+    private String openingHours;
+
     @Column(name = "profile_picture_path")
     private String profilePicturePath;
 

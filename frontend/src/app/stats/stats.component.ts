@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {Gym} from "../gym/gym";
 
 @Component({
   selector: 'app-stats',
@@ -13,12 +14,14 @@ export class StatsComponent implements OnInit {
   editSessionIndex: number | null = null;
   editedTitle: string | undefined = '';
   editedNotes: string | undefined = '';
+  gyms: Gym[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.fetchGymStats();
     this.fetchGymVisits();
+    this.fetchGyms();
   }
 
   fetchGymStats(): void {
@@ -45,6 +48,17 @@ export class StatsComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching gym visits:', error);
+      }
+    );
+  }
+
+  fetchGyms() {
+    this.http.get<Gym[]>('/api/gyms').subscribe(
+      (response) => {
+        this.gyms = response;
+      },
+      (error) => {
+        console.log('Error occurred while fetching gyms:', error);
       }
     );
   }

@@ -1,29 +1,30 @@
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Upper East Side', '123 Main Street', 'New York, NY');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Midtown', '456 Elm Street', 'New York, NY');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Williamsburg', '789 Oak Avenue', 'New York, NY');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Astoria', '321 Pine Lane', 'New York, NY');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Park Slope', '654 Maple Road', 'New York, NY');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Upper East Side', '123 Main Street', 'New York, NY', '9:00 AM - 6:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Midtown', '456 Elm Street', 'New York, NY', '8:00 AM - 9:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Williamsburg', '789 Oak Avenue', 'New York, NY', '10:00 AM - 7:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Astoria', '321 Pine Lane', 'New York, NY', '7:00 AM - 8:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Park Slope', '654 Maple Road', 'New York, NY', '6:00 AM - 10:00 PM');
 
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Hollywood', '123 Sunset Boulevard', 'Los Angeles, CA');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Downtown', '456 Main Street', 'Los Angeles, CA');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Santa Monica', '789 Ocean Avenue', 'Los Angeles, CA');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Venice Beach', '321 Pacific Avenue', 'Los Angeles, CA');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Silver Lake', '654 Hyperion Avenue', 'Los Angeles, CA');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Hollywood', '123 Sunset Boulevard', 'Los Angeles, CA', '9:00 AM - 8:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Downtown', '456 Main Street', 'Los Angeles, CA', '7:00 AM - 10:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Santa Monica', '789 Ocean Avenue', 'Los Angeles, CA', '8:00 AM - 7:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Venice Beach', '321 Pacific Avenue', 'Los Angeles, CA', '6:00 AM - 9:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Silver Lake', '654 Hyperion Avenue', 'Los Angeles, CA', '5:00 AM - 11:00 PM');
 
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Downtown', '123 Main Street', 'Chicago, IL');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - River North', '456 Michigan Avenue', 'Chicago, IL');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Lincoln Park', '789 Clark Street', 'Chicago, IL');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Wicker Park', '321 Division Street', 'Chicago, IL');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Lakeview', '654 Belmont Avenue', 'Chicago, IL');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Downtown', '123 Main Street', 'Chicago, IL', '8:00 AM - 5:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - River North', '456 Michigan Avenue', 'Chicago, IL', '6:00 AM - 9:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Lincoln Park', '789 Clark Street', 'Chicago, IL', '7:00 AM - 10:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Wicker Park', '321 Division Street', 'Chicago, IL', '9:00 AM - 6:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Lakeview', '654 Belmont Avenue', 'Chicago, IL', '10:00 AM - 7:00 PM');
 
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Downtown', '123 Main Street', 'Houston, TX');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Montrose', '456 Westheimer Road', 'Houston, TX');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Rice Village', '789 Kirby Drive', 'Houston, TX');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Heights', '321 19th Street', 'Houston, TX');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Midtown', '654 Travis Street', 'Houston, TX');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Downtown', '123 Main Street', 'Houston, TX', '7:00 AM - 8:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Montrose', '456 Westheimer Road', 'Houston, TX', '6:00 AM - 9:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Rice Village', '789 Kirby Drive', 'Houston, TX', '9:00 AM - 6:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Heights', '321 19th Street', 'Houston, TX', '8:00 AM - 7:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Midtown', '654 Travis Street', 'Houston, TX', '7:00 AM - 10:00 PM');
 
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - South Beach', '123 Ocean Drive', 'Miami, FL');
-INSERT INTO gyms (gymname, address, citystate) VALUES ('PowerHouse Fitness - Downtown', '456 Biscayne Boulevard', 'Miami, FL');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - South Beach', '123 Ocean Drive', 'Miami, FL', '8:00 AM - 5:00 PM');
+INSERT INTO gyms (gymname, address, citystate, opening_hours) VALUES ('PowerHouse Fitness - Downtown', '456 Biscayne Boulevard', 'Miami, FL', '9:00 AM - 6:00 PM');
+
 
 INSERT INTO membership_option (name, description, fee, duration, type)
 VALUES ('30 Days Trial', '30-days trail for new members', 50.00, 30, 'T');

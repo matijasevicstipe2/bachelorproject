@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS gyms (
     gymname VARCHAR(255) NOT NULL,
     address VARCHAR(255) NOT NULL,
     citystate VARCHAR(255) NOT NULL,
+    opening_hours VARCHAR(255),
     profile_picture_path VARCHAR(255)
     );
 

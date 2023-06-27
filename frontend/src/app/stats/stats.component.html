@@ -22,9 +22,7 @@
           <label for="gymSelect" class="form-label">Select Gym:</label>
           <select class="form-select" id="gymSelect" [(ngModel)]="selectedGymId" (change)="selectGym($event.target.value)">
             <option value="" selected>All</option>
-            <option value="1">Gym 1</option>
-            <option value="2">Gym 2</option>
-            <!-- Add more options for each gym -->
+            <option *ngFor="let gym of gyms" [value]="gym.id">{{ gym.name }}</option>
           </select>
         </div>
         <ul class="list-group">

@@ -24,5 +24,10 @@ public interface GymVisitRepository extends JpaRepository<GymVisit, Long> {
                                      @Param("startOfDay") Timestamp startOfDay,
                                      @Param("startOfNextDay") Timestamp startOfNextDay);
 
+    @Query("SELECT gv.gym.id, COUNT(gv) AS peopleCount " +
+            "FROM GymVisit gv " +
+            "WHERE gv.enterTime <= CURRENT_TIMESTAMP AND (gv.exitTime IS NULL OR gv.exitTime > CURRENT_TIMESTAMP) " +
+            "GROUP BY gv.gym.id")
+    List<Object[]> calculatePeopleInGym();
 
 }

@@ -42,5 +42,7 @@ public class PersonalTrainerController {
         personalTrainerService.deletePersonalTrainer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 }
 
