@@ -1,5 +1,6 @@
 package hr.smatijasevic.bachelorproject.groupclass;
 
+import hr.smatijasevic.bachelorproject.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import java.util.List;
 public class GroupClassController {
 
     private final GroupClassService groupClassService;
+    private final UserGroupClassRepository userGroupClassRepository;
+    private  final EmailService emailService;
 
     @GetMapping
     public ResponseEntity<List<GroupClass>> getAllGroupClasses() {
@@ -36,6 +39,30 @@ public class GroupClassController {
         groupClassService.saveGroupClass(groupClass);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping("/join-group-class")
+    public ResponseEntity<String> joinGroupClass(@RequestParam Long userId, @RequestParam Long groupClassId) {
+        // Check if the maximum number of people is reached for the group class
+        int currentUsers = groupClassService.countUsersByGroupClassId(groupClassId);
+        Long maxPeople = groupClassService.findMaxPeopleByGroupClassId(groupClassId);
+        if (currentUsers >= maxPeople) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Maximum number of people reached");
+        }
+
+        // Save the user-group class association in the database
+        UserGroupClass userGroupClass = new UserGroupClass();
+        userGroupClass.setUserId(userId);
+        userGroupClass.setGroupClassId(groupClassId);
+        userGroupClassRepository.save(userGroupClass);
+
+        String trainerEmail = groupClassService.findTrainerEmailByGroupClassId(groupClassId);
+        String subject = "Training Session Confirmation";
+        String body = "I would like to join this training session.";
+        emailService.sendEmail(trainerEmail, subject, body);
+
+        return ResponseEntity.ok("Joined group class successfully");
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGroupClass(@PathVariable Long id) {

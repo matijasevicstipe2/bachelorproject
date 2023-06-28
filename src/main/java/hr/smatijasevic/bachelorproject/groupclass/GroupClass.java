@@ -31,14 +31,17 @@ public class GroupClass {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "trainer_id")
+    @JoinColumn(name = "trainer_id", nullable = false)
     private PersonalTrainer trainer;
 
+    @Column(name = "max_people")
+    private Long maxPeople;
+
     @ManyToOne
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(name = "gym_id", nullable = false)
     private Gym gym;
 
-    @Column(name = "schedule")
+    @Column(name = "schedule", nullable = false)
     private LocalDateTime schedule;
 
     @ManyToMany(mappedBy = "groupClasses")

@@ -6,13 +6,10 @@
           <h5 class="card-title">Group Classes</h5>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Select Gym
+              {{ selectedGymId ? getSelectedGymName() : 'Select Gym' }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#" data-gym-id="1">Gym 1</a>
-              <a class="dropdown-item" href="#" data-gym-id="2">Gym 2</a>
-              <a class="dropdown-item" href="#" data-gym-id="3">Gym 3</a>
-              <!-- Add more gyms as needed -->
+              <a class="dropdown-item" href="#" *ngFor="let gym of gyms" (click)="onSelectGym(gym.id)">{{ gym.name }}</a>
             </div>
           </div>
         </div>
@@ -31,29 +28,17 @@
             </tr>
             </thead>
             <tbody>
-            <!-- Rows for each hour -->
-            <tr>
-              <th>07:00</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <!-- Add more rows for each hour -->
-            <tr>
-              <th>08:00</th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <!-- Repeat for other hours -->
+            <ng-container *ngIf="selectedGymId">
+              <tr *ngFor="let hour of hours">
+                <th>{{ hour }}</th>
+                <td *ngFor="let day of days" (click)="onSelectClass(hour, day)">
+                  <div *ngFor="let groupClass of getGroupClasses(hour, day)">
+                    <p>{{ groupClass.name }}</p>
+                    <p>Trainer: {{ groupClass.tra }}</p>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
             </tbody>
           </table>
         </div>

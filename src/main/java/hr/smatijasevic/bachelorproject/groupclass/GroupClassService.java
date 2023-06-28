@@ -11,4 +11,7 @@ public interface GroupClassService {
     void saveGroupClass(GroupClass groupClass);
 
     void deleteGroupClass(Long id);
+    int countUsersByGroupClassId(Long groupClassId);
+    Long findMaxPeopleByGroupClassId(Long groupClassId);
+    String findTrainerEmailByGroupClassId(Long groupClassId);
 }
