@@ -70,7 +70,7 @@ public class AuthenticationService {
     QRCode qrCode = QRCode.builder()
             .account(acc)
             .qrPass(qrPass)
-            .image(qrCodeData)
+            .code(qrCodeData)
             .build();
     qrCodeService.saveQRCode(qrCode);
 

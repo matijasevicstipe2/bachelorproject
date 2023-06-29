@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS personal_trainers (
     FOREIGN KEY (gym_id) REFERENCES gyms (id)
 );
 
-CREATE TABLE membership_option (
+CREATE TABLE IF NOT EXISTS membership_option (
    id BIGINT PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(255) NOT NULL,
    description VARCHAR(255) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS user_details (
     FOREIGN KEY (personal_trainer_id) REFERENCES personal_trainers (id)
 );
 
-CREATE TABLE qr_codes (
+CREATE TABLE IF NOT EXISTS qr_codes (
     id INT PRIMARY KEY,
     account_id INT,
     qr_pass VARCHAR(255) NOT NULL,

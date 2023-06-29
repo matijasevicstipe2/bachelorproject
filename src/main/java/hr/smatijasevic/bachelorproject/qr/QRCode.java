@@ -28,7 +28,7 @@ public class QRCode {
     private String qrPass;
 
     @Lob
-    private byte[] image;
+    private byte[] code;
 
 
 }

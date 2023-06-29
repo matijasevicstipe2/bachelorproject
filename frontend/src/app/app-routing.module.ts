@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {GymDashboardComponent} from "./gym-dashboard/gym-dashboard.component";
 import {LoginComponent} from "./login/login.component";
 import {LoggedInGuard} from "./security/logged-in.guard";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
@@ -15,8 +14,6 @@ import {GroupClassesComponent} from "./group-classes/group-classes.component";
 import {PaymentFormComponent} from "./payment-form/payment-form.component";
 
 const routes: Routes = [
-  { path: 'gym', component: GymDashboardComponent},
-  { path: 'gym-dashboard', component: GymDashboardComponent},
   { path: 'payment/:id', component: PaymentFormComponent, canActivate: [LoggedInGuard] },
   { path: 'stats', component: StatsComponent, canActivate: [LoggedInGuard]},
   { path: 'find-gym', component: FindGymComponent, canActivate: [LoggedInGuard]},

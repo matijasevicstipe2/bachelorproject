@@ -6,10 +6,10 @@
         <h5 class="card-title">Gym Stats</h5>
         <p>Days and hours spent:</p>
         <ul>
-          <li>This Week: {{ gymStats?.visitsWeek }} days, {{ gymStats?.visitsWeekHours }} hours {{ gymStats?.visitsWeekMin }} minutes</li>
-          <li>This Month: {{ gymStats?.visitsMonth }} days, {{ gymStats?.visitsMonthHours }} hours {{ gymStats?.visitsMonthMin }} minutes</li>
-          <li>This Year: {{ gymStats?.visitsYear }} days, {{ gymStats?.visitsYearHours }} hours {{ gymStats?.visitsYearMin }} minutes</li>
-          <li>Total: {{ gymStats?.visitsTotal }} days, {{ gymStats?.visitsTotalHours }} hours {{ gymStats?.visitsTotalMin }} minutes</li>
+          <li>This Week: {{ gymStats.visitsWeek }} days, {{ gymStats.visitsWeekHours }} hours {{ gymStats.visitsWeekMin }} minutes</li>
+          <li>This Month: {{ gymStats.visitsMonth }} days, {{ gymStats.visitsMonthHours }} hours {{ gymStats.visitsMonthMin }} minutes</li>
+          <li>This Year: {{ gymStats.visitsYear }} days, {{ gymStats.visitsYearHours }} hours {{ gymStats.visitsYearMin }} minutes</li>
+          <li>Total: {{ gymStats.visitsTotal }} days, {{ gymStats.visitsTotalHours }} hours {{ gymStats.visitsTotalMin }} minutes</li>
         </ul>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <h5 class="card-title">Gym Visits</h5>
         <div class="mb-3">
           <label for="gymSelect" class="form-label">Select Gym:</label>
-          <select class="form-select" id="gymSelect" [(ngModel)]="selectedGymId" (change)="selectGym($event.target.value)">
+          <select class="form-select" id="gymSelect" [(ngModel)]="selectedGymId" (change)="selectGym($event)">
             <option value="" selected>All</option>
             <option *ngFor="let gym of gyms" [value]="gym.id">{{ gym.name }}</option>
           </select>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Gym} from "../gym/gym";
+import { Gym } from "../gym/gym";
 
 @Component({
   selector: 'app-stats',
@@ -52,7 +52,7 @@ export class StatsComponent implements OnInit {
     );
   }
 
-  fetchGyms() {
+  fetchGyms(): void {
     this.http.get<Gym[]>('/api/gyms').subscribe(
       (response) => {
         this.gyms = response;
@@ -63,8 +63,8 @@ export class StatsComponent implements OnInit {
     );
   }
 
-  selectGym(gymId: number | null): void {
-    this.selectedGymId = gymId;
+  selectGym(event: any): void {
+    this.selectedGymId = event.target.value;
     this.fetchGymVisits();
   }
 

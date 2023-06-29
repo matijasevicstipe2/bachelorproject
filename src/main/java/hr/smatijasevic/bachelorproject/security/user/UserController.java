@@ -36,7 +36,7 @@ public class UserController {
                     .profilePicture(accountOptional.get().getProfilePicture())
                     .firstName(accountOptional.get().getFirstName())
                     .lastName(accountOptional.get().getLastName())
-                    .qrCode(qrCodeService.getQRCodeByAccount(accountOptional.get()).map(QRCode::getImage).orElse(null))
+                    .qrCode(qrCodeService.getQRCodeByAccount(accountOptional.get()).map(QRCode::getCode).orElse(null))
                     .daysLeft(checkMembershipDays(userDetails, LocalDateTime.now()))
                     .membership(userDetails.getMembershipOption().getName())
                     .build();
