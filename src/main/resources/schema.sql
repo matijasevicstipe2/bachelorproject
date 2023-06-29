@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS user_details (
 );
 
 CREATE TABLE IF NOT EXISTS qr_codes (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     account_id INT,
     qr_pass VARCHAR(255) NOT NULL,
     code BLOB,

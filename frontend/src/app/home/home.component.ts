@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from "../security/authentication.service";
 import {HttpClient} from "@angular/common/http";
 import {UserDto} from "./userDto";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   user: UserDto = {} as UserDto;
 
   private backendUrl = 'http://localhost:8080';
@@ -65,5 +65,20 @@ export class HomeComponent {
   updateMembership() {
     this.router.navigate(['/membership']);
   }
+
+  getQRCodeSource(qrCode: ArrayBuffer | string | null): string {
+    if (qrCode instanceof ArrayBuffer) {
+      const uintArray = new Uint8Array(qrCode);
+      const regularArray = Array.from(uintArray); // Convert Uint8Array to regular array
+      const base64String = btoa(String.fromCharCode.apply(null, regularArray));
+      return 'data:image/png;base64,' + base64String;
+    } else if (typeof qrCode === 'string') {
+      return qrCode; // Assume it's already a URL or Base64 string
+    } else {
+      return ''; // Empty string if qrCode is null or undefined
+    }
+  }
+
+
 
 }

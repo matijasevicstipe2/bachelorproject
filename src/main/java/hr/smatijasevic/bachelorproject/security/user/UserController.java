@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Optional;
 
 @RestController
@@ -32,14 +33,18 @@ public class UserController {
         Optional<Account> accountOptional = accountRepository.findByUsername(username);
         if ( accountOptional.isPresent()) {
             UserDetails userDetails = userDetailsService.getUserDetailsByAccount(accountOptional.get());
+            byte[] qrCode = qrCodeService.getQRCodeByAccount(accountOptional.get()).map(QRCode::getCode).orElse(null);
             UserDto user = UserDto.builder()
                     .profilePicture(accountOptional.get().getProfilePicture())
                     .firstName(accountOptional.get().getFirstName())
                     .lastName(accountOptional.get().getLastName())
-                    .qrCode(qrCodeService.getQRCodeByAccount(accountOptional.get()).map(QRCode::getCode).orElse(null))
+                    .qrCode(qrCode)
+                    .qrCodeBase64(Base64.getEncoder().encodeToString(qrCode))
                     .daysLeft(checkMembershipDays(userDetails, LocalDateTime.now()))
-                    .membership(userDetails.getMembershipOption().getName())
                     .build();
+            if (userDetails.getMembershipOption() != null) {
+                 user.setMembership(userDetails.getMembershipOption().getName());
+            }
 
             return new ResponseEntity<>(user, HttpStatus.OK);
         } else {
@@ -50,17 +55,22 @@ public class UserController {
     private long checkMembershipDays(UserDetails details, LocalDateTime dateTime) {
         long days;
         MembershipOption membership = details.getMembershipOption();
-        if (membership.getType().equals("T")) {
-            days = membership.getDuration() - gymVisitService
-                    .getCountByAccountAndEnterTimeAfter(details.getAccount(), details.getPaymentDate());
+        if (membership == null) {
+            days = -1;
         } else {
-            if (membership.getDuration() == 365) {
-                days = Duration.between(details.getPaymentDate().plusYears(1), dateTime).toDays();
-
+            if (membership.getType().equals("T")) {
+                days = membership.getDuration() - gymVisitService
+                        .getCountByAccountAndEnterTimeAfter(details.getAccount(), details.getPaymentDate());
             } else {
-                days = Duration.between(details.getPaymentDate().plusMonths(1), dateTime).toDays();
+                if (membership.getDuration() == 365) {
+                    days = Duration.between(details.getPaymentDate().plusYears(1), dateTime).toDays();
+
+                } else {
+                    days = Duration.between(details.getPaymentDate().plusMonths(1), dateTime).toDays();
+                }
             }
         }
+
         if (days < 0) {
             details.setActive(false);
         }

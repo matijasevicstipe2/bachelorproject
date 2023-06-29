@@ -10,6 +10,7 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private byte[] qrCode;
+    private String qrCodeBase64;
     private long daysLeft;
     private String membership;
 }

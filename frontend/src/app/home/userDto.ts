@@ -3,6 +3,7 @@ export interface UserDto {
   firstName: string;
   lastName: string;
   qrCode: ArrayBuffer | string | null;
+  qrCodebase64: string;
   daysLeft: number;
   membership: string;
 }
