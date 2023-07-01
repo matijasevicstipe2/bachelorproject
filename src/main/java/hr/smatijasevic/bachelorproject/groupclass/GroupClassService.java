@@ -1,12 +1,15 @@
 package hr.smatijasevic.bachelorproject.groupclass;
 
+import hr.smatijasevic.bachelorproject.personaltrainer.PersonalTrainer;
+import hr.smatijasevic.bachelorproject.personaltrainer.TrainerDto;
+
 import java.util.List;
 
 public interface GroupClassService {
 
     List<GroupClass> getAllGroupClasses();
 
-    GroupClass getGroupClassById(Long id);
+    List<GroupClass> getGroupClassByGymId(Long gymId);
 
     void saveGroupClass(GroupClass groupClass);
 
@@ -14,4 +17,6 @@ public interface GroupClassService {
     int countUsersByGroupClassId(Long groupClassId);
     Long findMaxPeopleByGroupClassId(Long groupClassId);
     String findTrainerEmailByGroupClassId(Long groupClassId);
+    List<GroupClassDto> convertToGroupClassDtoList(List<GroupClass> groupClasses);
+    GroupClassDto convertToGroupClassDto(GroupClass groupClass);
 }

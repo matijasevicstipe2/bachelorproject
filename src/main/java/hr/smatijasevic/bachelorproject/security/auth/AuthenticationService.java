@@ -7,8 +7,7 @@ import com.google.zxing.common.BitMatrix;
 import hr.smatijasevic.bachelorproject.qr.QRCode;
 import hr.smatijasevic.bachelorproject.qr.QRCodeService;
 import hr.smatijasevic.bachelorproject.security.config.JwtService;
-import hr.smatijasevic.bachelorproject.security.user.Account;
-import hr.smatijasevic.bachelorproject.security.user.AccountRepository;
+import hr.smatijasevic.bachelorproject.security.user.*;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetails;
 import hr.smatijasevic.bachelorproject.userdetails.UserDetailsRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthenticationService {
   private final AccountRepository repository;
-  private  final UserDetailsRepository detailsRepository;
+  private final UserDetailsRepository detailsRepository;
+  private final UserAuthorityRepository userAuthorityRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
@@ -52,14 +52,19 @@ public class AuthenticationService {
             .address(request.getAddress())
             .cityState(request.getCityState())
             .build();
+    repository.save(acc);
+
+    UserAuthorityId userAuthorityId = new UserAuthorityId(acc.getId(), 2);
+    UserAuthority userAuthority = UserAuthority.builder()
+            .id(userAuthorityId)
+            .build();
+    userAuthorityRepository.save(userAuthority);
 
     UserDetails userDetails = UserDetails.builder()
             .account(acc)
             .usage(0)
             .active(false)
             .build();
-
-    repository.save(acc);
     detailsRepository.save(userDetails);
 
     String qrPass = generateQRPassword(8);

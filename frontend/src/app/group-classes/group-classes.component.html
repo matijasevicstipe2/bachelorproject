@@ -4,43 +4,16 @@
       <div class="card-body">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h5 class="card-title">Group Classes</h5>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ selectedGymId ? getSelectedGymName() : 'Select Gym' }}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#" *ngFor="let gym of gyms" (click)="onSelectGym(gym.id)">{{ gym.name }}</a>
-            </div>
+          <div class="mb-3">
+            <label for="gymSelect" class="form-label">Select Gym:</label>
+            <select class="form-select" id="gymSelect" [(ngModel)]="selectedGymId" (change)="onSelectGym($event)">
+              <option value="" selected>All</option>
+              <option *ngFor="let gym of gyms" [value]="gym.id">{{ gym.name }}</option>
+            </select>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th></th> <!-- Empty cell for spacing -->
-              <th>Monday</th>
-              <th>Tuesday</th>
-              <th>Wednesday</th>
-              <th>Thursday</th>
-              <th>Friday</th>
-              <th>Saturday</th>
-              <th>Sunday</th>
-            </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngIf="selectedGymId">
-              <tr *ngFor="let hour of hours">
-                <th>{{ hour }}</th>
-                <td *ngFor="let day of days" (click)="onSelectClass(hour, day)">
-                  <div *ngFor="let groupClass of getGroupClasses(hour, day)">
-                    <p>{{ groupClass.name }}</p>
-                    <p>Trainer: {{ groupClass.tra }}</p>
-                  </div>
-                </td>
-              </tr>
-            </ng-container>
-            </tbody>
-          </table>
+        <div class="calendar-container">
+          <full-calendar [options]="calendarOptions"></full-calendar>
         </div>
       </div>
     </div>

@@ -19,16 +19,17 @@ public class GroupClassController {
     private  final EmailService emailService;
 
     @GetMapping
-    public ResponseEntity<List<GroupClass>> getAllGroupClasses() {
+    public ResponseEntity<List<GroupClassDto>> getAllGroupClasses() {
+
         List<GroupClass> groupClasses = groupClassService.getAllGroupClasses();
-        return new ResponseEntity<>(groupClasses, HttpStatus.OK);
+        return new ResponseEntity<>(groupClassService.convertToGroupClassDtoList(groupClasses), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GroupClass> getGroupClassById(@PathVariable Long id) {
-        GroupClass groupClass = groupClassService.getGroupClassById(id);
-        if (groupClass != null) {
-            return new ResponseEntity<>(groupClass, HttpStatus.OK);
+    @GetMapping("/{gymId}")
+    public ResponseEntity<List<GroupClassDto>> getGroupClassByGym(@PathVariable Long gymId) {
+        List<GroupClass> groupClasses = groupClassService.getGroupClassByGymId(gymId);
+        if (!groupClasses.isEmpty()) {
+            return new ResponseEntity<>(groupClassService.convertToGroupClassDtoList(groupClasses), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

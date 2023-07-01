@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class GymServiceImpl implements GymService {
@@ -43,5 +44,25 @@ public class GymServiceImpl implements GymService {
 
         return peopleInGymMap;
     }
+
+    @Override
+    public List<GymDto> convertToGymDtoList(List<Gym> gyms) {
+        return gyms.stream()
+                .map(this::convertToGymDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public GymDto convertToGymDto(Gym gym) {
+        return GymDto.builder()
+                .id(gym.getId())
+                .name(gym.getGymName())
+                .address(gym.getAddress())
+                .cityState(gym.getCityState())
+                .openingHours(gym.getOpeningHours())
+                .profilePicture(gym.getProfilePicturePath())
+                .build();
+    }
+
 }
 

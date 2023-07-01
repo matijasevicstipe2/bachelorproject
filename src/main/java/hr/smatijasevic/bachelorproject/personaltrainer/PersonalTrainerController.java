@@ -16,16 +16,16 @@ public class PersonalTrainerController {
     private final PersonalTrainerService personalTrainerService;
 
     @GetMapping
-    public ResponseEntity<List<PersonalTrainer>> getAllPersonalTrainers() {
-        List<PersonalTrainer> trainers = personalTrainerService.getAllPersonalTrainers();
-        return new ResponseEntity<>(trainers, HttpStatus.OK);
+    public ResponseEntity<List<TrainerDto>> getAllPersonalTrainers() {
+        return new ResponseEntity<>(personalTrainerService
+                .convertToTrainerDtoList(personalTrainerService.getAllPersonalTrainers()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonalTrainer> getPersonalTrainerById(@PathVariable Integer id) {
+    public ResponseEntity<TrainerDto> getPersonalTrainerById(@PathVariable Integer id) {
         PersonalTrainer trainer = personalTrainerService.getPersonalTrainerById(id);
         if (trainer != null) {
-            return new ResponseEntity<>(trainer, HttpStatus.OK);
+            return new ResponseEntity<>(personalTrainerService.convertToTrainerDto(trainer), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

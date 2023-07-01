@@ -15,7 +15,7 @@
           </div>
           <div class="col-6 text-right">
             <!-- QR code picture -->
-            <img [src]="user.qrCodebase64" alt="QR Code">
+            <img [src]="'data:image/png;base64,' + user.qrCode" alt="QR Code">
           </div>
         </div>
         <hr>

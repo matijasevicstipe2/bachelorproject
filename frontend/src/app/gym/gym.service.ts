@@ -8,7 +8,7 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class GymService {
 
-  private backendUrl = 'http://localhost:8080/';
+  private backendUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 

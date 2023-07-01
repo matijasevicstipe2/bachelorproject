@@ -7,7 +7,7 @@ import { Trainer } from './trainer';
   providedIn: 'root'
 })
 export class TrainerService {
-  private backendUrl = 'http://localhost:8080/';
+  private backendUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 

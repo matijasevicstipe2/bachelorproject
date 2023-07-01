@@ -11,5 +11,8 @@ public interface PersonalTrainerService {
     void savePersonalTrainer(PersonalTrainer personalTrainer);
 
     void deletePersonalTrainer(Integer id);
+    List<TrainerDto> convertToTrainerDtoList(List<PersonalTrainer> personalTrainers);
+    TrainerDto convertToTrainerDto(PersonalTrainer personalTrainer);
+
 }
 

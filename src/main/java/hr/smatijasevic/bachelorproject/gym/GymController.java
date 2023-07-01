@@ -19,8 +19,8 @@ public class GymController {
     private final GymService gymService;
 
     @GetMapping("/gyms")
-    public List<Gym> getAllGyms() {
-        return gymService.getAllGyms();
+    public List<GymDto> getAllGyms() {
+        return gymService.convertToGymDtoList(gymService.getAllGyms());
     }
 
     @GetMapping("/people-in-gym")

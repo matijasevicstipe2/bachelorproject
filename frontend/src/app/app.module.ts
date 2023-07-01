@@ -19,6 +19,7 @@ import {AuthenticationInterceptor} from "./security/authentication.interceptor";
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {HomeComponent} from "./home/home.component";
 import {RouterModule} from "@angular/router";
+import {FullCalendarModule} from "@fullcalendar/angular";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import {RouterModule} from "@angular/router";
     FormsModule,
     HttpClientModule,
     CommonModule,
+    FullCalendarModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxStripeModule.forRoot('pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u'),

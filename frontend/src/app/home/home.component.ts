@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   user: UserDto = {} as UserDto;
+  imageToShow: any = null;
+  showSpinner: boolean = true;
 
   private backendUrl = 'http://localhost:8080';
 
@@ -78,7 +80,5 @@ export class HomeComponent implements OnInit {
       return ''; // Empty string if qrCode is null or undefined
     }
   }
-
-
 
 }

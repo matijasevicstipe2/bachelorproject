@@ -8,4 +8,6 @@ public interface GymService {
     List<Gym> getAllGyms();
     Gym getGymById(Long id);
     Map<Long, Integer> getPeopleInGym();
+    List<GymDto> convertToGymDtoList(List<Gym> gyms);
+    GymDto convertToGymDto(Gym gym);
 }

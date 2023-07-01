@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Gym } from "../gym/gym";
+import {AuthenticationService} from "../security/authentication.service";
 
 @Component({
   selector: 'app-stats',
@@ -8,6 +9,7 @@ import { Gym } from "../gym/gym";
   styleUrls: ['./stats.component.css']
 })
 export class StatsComponent implements OnInit {
+  private backendUrl = 'http://localhost:8080';
   gymStats: GymStatsDto = {};
   gymVisits: GymVisitDto[] = [];
   selectedGymId: number | null = null;
@@ -16,7 +18,8 @@ export class StatsComponent implements OnInit {
   editedNotes: string | undefined = '';
   gyms: Gym[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.fetchGymStats();
@@ -25,10 +28,9 @@ export class StatsComponent implements OnInit {
   }
 
   fetchGymStats(): void {
-    // Replace the URL with your backend API endpoint for fetching gym stats
-    const apiUrl = '/api/stats?username=username';
-
-    this.http.get<GymStatsDto>(apiUrl).subscribe(
+    const apiUrl = '/api/stats?username=';
+    const username = this.authService.getAuthenticatedUserUsername();
+    this.http.get<GymStatsDto>(this.backendUrl + apiUrl + `${username}`).subscribe(
       (response: GymStatsDto) => {
         this.gymStats = response;
       },
@@ -42,7 +44,7 @@ export class StatsComponent implements OnInit {
     // Replace the URL with your backend API endpoint for fetching gym visits
     const apiUrl = '/api/visits?username=username&gymId=' + (this.selectedGymId || '');
 
-    this.http.get<GymVisitDto[]>(apiUrl).subscribe(
+    this.http.get<GymVisitDto[]>(this.backendUrl + apiUrl).subscribe(
       (response: GymVisitDto[]) => {
         this.gymVisits = response;
       },
@@ -53,9 +55,10 @@ export class StatsComponent implements OnInit {
   }
 
   fetchGyms(): void {
-    this.http.get<Gym[]>('/api/gyms').subscribe(
+    this.http.get<Gym[]>(this.backendUrl + '/api/gyms').subscribe(
       (response) => {
         this.gyms = response;
+        console.log(this.gyms[0].id)
       },
       (error) => {
         console.log('Error occurred while fetching gyms:', error);
@@ -89,7 +92,7 @@ export class StatsComponent implements OnInit {
 
       // Replace the URL with your backend API endpoint for updating gym visit
       const apiUrl = '/api/update-visit';
-      this.http.put(apiUrl, visit).subscribe(
+      this.http.put(this.backendUrl + apiUrl, visit).subscribe(
         () => {
           console.log('Gym visit updated successfully');
           this.editSessionIndex = null;
