@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {LoggedInGuard} from "./security/logged-in.guard";
 import {PageNotFoundComponent} from "./page-not-found/page-not-found.component";
@@ -11,10 +11,10 @@ import {FindGymComponent} from "./find-gym/find-gym.component";
 import {MembershipComponent} from "./membership/membership.component";
 import {OneOnOneTrainingComponent} from "./one-on-one-training/one-on-one-training.component";
 import {GroupClassesComponent} from "./group-classes/group-classes.component";
-import {PaymentFormComponent} from "./payment-form/payment-form.component";
+import {CardComponent} from "./card/card.component";
 
 const routes: Routes = [
-  { path: 'payment/:id', component: PaymentFormComponent, canActivate: [LoggedInGuard] },
+  { path: 'payment/:id', component: CardComponent, canActivate: [LoggedInGuard] },
   { path: 'stats', component: StatsComponent, canActivate: [LoggedInGuard]},
   { path: 'find-gym', component: FindGymComponent, canActivate: [LoggedInGuard]},
   { path: 'one-on-one-training', component: OneOnOneTrainingComponent, canActivate: [LoggedInGuard]},

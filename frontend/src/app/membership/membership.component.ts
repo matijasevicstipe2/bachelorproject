@@ -12,11 +12,17 @@ export class MembershipComponent implements OnInit {
   membershipOptions: MembershipOption[] = [];
 
   private backendUrl = 'http://localhost:8080';
-
+  public displayCard: boolean = false;
+  public cardParams!: number;
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.fetchMembershipOptions();
+  }
+
+  public showCardComponent(id: number): void {
+    this.cardParams = id;
+    this.displayCard = true;
   }
 
   fetchMembershipOptions() {

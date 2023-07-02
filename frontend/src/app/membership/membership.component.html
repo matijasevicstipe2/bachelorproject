@@ -1,19 +1,20 @@
-<div class="row justify-content-center ">
+<div class="row justify-content-center">
   <div class="col-sm-12 col-md-10 col-lg-6 h-100">
-    <div class="card mt-5 basic">
-      <div class="card-body">
-        <div class="membership-options">
-          <div *ngFor="let option of membershipOptions" class="membership-option">
-            <div class="option-details">
-              <h3>{{ option.name }}</h3>
-              <p class="option-fee">{{option.fee}}</p>
+    <div class="card mt-5 ">
+      <div class="">
+        <div class="row">
+          <div *ngFor="let option of membershipOptions" class="col-sm-4">
+            <div class="membership-option">
+              <div class="option-details">
+                <h3>{{ option.name }}</h3>
+                <p class="option-fee">{{ option.fee }}</p>
+              </div>
+              <p>{{ option.description }}</p>
+              <button [routerLink]="['/payment', option.id]" [disabled]="!true">Select</button>
             </div>
-            <p>{{ option.description }}</p>
-            <button [routerLink]="['/payment', option.id]" [disabled]="!true">Select</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

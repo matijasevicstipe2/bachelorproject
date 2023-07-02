@@ -42,9 +42,8 @@ public class PaymentController {
         Long amount = paymentRequest.getAmount();
         String currency = paymentRequest.getCurrency();
         String description = paymentRequest.getDescription();
-        String username = paymentRequest.getUsername();
-        Long option = paymentRequest.getOption();
-
+        String username = "andrewjo";
+        Long option = 1L;
         Stripe.apiKey = stripeSecretKey;
 
         Optional<Account> acc = accountRepository.findByUsername(username);
