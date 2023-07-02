@@ -29,6 +29,6 @@ export class CardService {
       user,
       option
     };
-    return this.httpClient.post(`${environment.baseUrl}/pay`, chargeRequest, { headers: this.headers });
+    return this.httpClient.post<string>(`${environment.baseUrl}/pay`, chargeRequest, { headers: this.headers });
   }
 }

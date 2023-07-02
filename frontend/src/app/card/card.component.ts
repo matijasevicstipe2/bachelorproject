@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import {MembershipOption} from "../membership/membership-option";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
-import {AuthenticationService} from "../security/authentication.service"; // Add this l
+import {AuthenticationService} from "../security/authentication.service";
 
 declare var Stripe: any;
 
@@ -70,16 +70,21 @@ export class CardComponent implements OnInit {
    * @param token The Stripe.js token
    */
   public createCharge(token: any) {
+
     const username = this.authService.getAuthenticatedUserUsername();
     this.charge = null;
     this.chargeError = null;
     this.cardService
       .createCharge(token, this.membershipOption.fee, 'usd', this.membershipOption.description, username, this.optionId)
-    .subscribe(
-      response => this.charge = response,
-      error => this.chargeError = error
-    );
-    console.log("dd" + this.charge)
+      .subscribe({
+        next: (response: string) => {
+         console.log(response)
+        },
+        error: (error: any) => {
+      console.log("Error:", JSON.stringify(error));
+    }
+
+  });
   }
 
   /**
