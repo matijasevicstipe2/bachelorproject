@@ -1,0 +1,21 @@
+<div class="modal-header">
+<h4 class="modal-title">{{ event.title }}</h4>
+<button type="button" class="close" (click)="activeModal.dismiss()">
+  <span>&times;</span>
+</button>
+</div>
+<div class="modal-body">
+  <p>Date: {{ event.extendedProps['classDetails'].date }}</p>
+  <p>Start: {{ event.extendedProps['classDetails'].start }}</p>
+  <p>End: {{ event.extendedProps['classDetails'].end }}</p>
+  <p>Duration: {{ event.extendedProps['classDetails'].duration }}</p>
+  <p></p>
+  <p>Instructor: {{ event.extendedProps['classDetails'].instructor }}</p>
+  <p>Location: {{ event.extendedProps['classDetails'].location }}</p>
+  <p></p>
+  <p>Description: {{ event.extendedProps['classDetails'].description }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="activeModal.close()">Close</button>
+</div>
+

@@ -8,4 +8,5 @@ export interface GroupClass {
   maxPeople: number;
   gym: Gym;
   schedule: Date;
+  duration: number;
 }

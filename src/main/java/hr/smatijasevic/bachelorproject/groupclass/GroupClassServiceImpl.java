@@ -74,6 +74,7 @@ public class GroupClassServiceImpl implements GroupClassService {
                 .id(groupClass.getId())
                 .name(groupClass.getName())
                 .schedule(groupClass.getSchedule())
+                .duration(groupClass.getDuration())
                 .trainer(personalTrainerService.convertToTrainerDto(groupClass.getTrainer()))
                 .gym(gymService.convertToGymDto(groupClass.getGym()))
                 .maxPeople(groupClass.getMaxPeople())

@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS group_classes (
     trainer_id BIGINT NOT NULL,
     gym_id BIGINT NOT NULL,
     schedule DATETIME NOT NULL,
+    duration BIGINT NOT NULL,
     max_people BIGINT,
     CONSTRAINT fk_trainer FOREIGN KEY (trainer_id) REFERENCES personal_trainers (id),
     CONSTRAINT fk_gym_gc FOREIGN KEY (gym_id) REFERENCES gyms (id)

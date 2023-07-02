@@ -44,6 +44,9 @@ public class GroupClass {
     @Column(name = "schedule", nullable = false)
     private LocalDateTime schedule;
 
+    @Column(name = "duration", nullable = false)
+    private Long duration;
+
     @ManyToMany(mappedBy = "groupClasses")
     private Set<UserDetails> users = new HashSet<>();
 }

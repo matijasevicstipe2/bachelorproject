@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {LoginComponent} from "./login/login.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {CommonModule} from "@angular/common";
+import {CommonModule, DatePipe} from "@angular/common";
 import { RegisterComponent } from './register/register.component';
 import {NgxStripeModule} from "ngx-stripe";
 import { PaymentFormComponent } from './payment-form/payment-form.component';
@@ -20,6 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {HomeComponent} from "./home/home.component";
 import {RouterModule} from "@angular/router";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { EventPopupComponent } from './event-popup/event-popup.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {FullCalendarModule} from "@fullcalendar/angular";
     FindGymComponent,
     GroupClassesComponent,
     OneOnOneTrainingComponent,
-    HomeComponent
+    HomeComponent,
+    EventPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
     NoopAnimationsModule
   ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,

@@ -20,5 +20,6 @@ public class GroupClassDto {
     private Long maxPeople;
     private GymDto gym;
     private LocalDateTime schedule;
+    private Long duration;
 }
 
