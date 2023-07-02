@@ -6,7 +6,8 @@
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let trainer of trainers">
             <div class="d-flex align-items-center">
-              <img [src]="trainer.profilePicture" alt="Trainer Profile Picture" class="mr-3" width="50" height="50">
+              <img [src]="trainer.profilePicture ? ('data:image/png;base64,' +trainer.profilePicture) : 'assets/images/blank.png'"
+                   alt="Trainer Profile Picture" class="mr-3" width="50" height="50">
               <div>
                 <h6 class="mb-0">{{ trainer.firstName }} {{ trainer.lastName }}</h6>
                 <p class="mb-0">Specialty: {{ trainer.specialty }}</p>

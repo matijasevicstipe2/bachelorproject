@@ -46,8 +46,9 @@ public class PersonalTrainer {
     @Column(name = "speciality")
     private String speciality;
 
-    @Column(name = "profile_picture_path")
-    private String profilePicturePath;
+    @Lob
+    @Column(name = "profilepicture")
+    private byte[] profilePicture;
 
     @OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<GroupClass> groupClasses = new ArrayList<>();

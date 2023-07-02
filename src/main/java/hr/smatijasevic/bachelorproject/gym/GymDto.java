@@ -12,5 +12,5 @@ public class GymDto {
     private String cityState;
     private String openingHours;
     private Integer peopleInGym;
-    private String profilePicture;
+    private byte[] profilePicture;
 }

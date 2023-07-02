@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS gyms (
     address VARCHAR(255) NOT NULL,
     citystate VARCHAR(255) NOT NULL,
     opening_hours VARCHAR(255),
-    profile_picture_path VARCHAR(255)
+    profilepicture BLOB
     );
 
 CREATE TABLE IF NOT EXISTS personal_trainers (
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS personal_trainers (
     availability BOOLEAN NOT NULL,
     gym_id INT,
     speciality VARCHAR(255),
-    profile_picture_path VARCHAR(255),
+    profilepicture BLOB,
     FOREIGN KEY (gym_id) REFERENCES gyms (id)
 );
 

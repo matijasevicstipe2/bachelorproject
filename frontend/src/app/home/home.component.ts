@@ -11,14 +11,12 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
   user: UserDto = {} as UserDto;
-  imageToShow: any = null;
-  showSpinner: boolean = true;
 
   private backendUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient,
               private authService: AuthenticationService,
-              private router: Router) { }
+              private router: Router) {}
 
   ngOnInit() {
     this.fetchUserInfo();
@@ -39,6 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   uploadProfilePicture() {
+    const username = this.authService.getAuthenticatedUserUsername();
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/*';
@@ -49,7 +48,7 @@ export class HomeComponent implements OnInit {
         const formData = new FormData();
         formData.append('profilePicture', file);
         this.http
-          .post<any>(this.backendUrl + '/api/uploadpicture', formData)
+          .post<any>(this.backendUrl + `/api/uploadpicture/${username}`, formData)
           .subscribe(
             (response) => {
               // Update the user profile picture
@@ -66,19 +65,6 @@ export class HomeComponent implements OnInit {
 
   updateMembership() {
     this.router.navigate(['/membership']);
-  }
-
-  getQRCodeSource(qrCode: ArrayBuffer | string | null): string {
-    if (qrCode instanceof ArrayBuffer) {
-      const uintArray = new Uint8Array(qrCode);
-      const regularArray = Array.from(uintArray); // Convert Uint8Array to regular array
-      const base64String = btoa(String.fromCharCode.apply(null, regularArray));
-      return 'data:image/png;base64,' + base64String;
-    } else if (typeof qrCode === 'string') {
-      return qrCode; // Assume it's already a URL or Base64 string
-    } else {
-      return ''; // Empty string if qrCode is null or undefined
-    }
   }
 
 }

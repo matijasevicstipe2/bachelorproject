@@ -19,5 +19,5 @@ public class TrainerDto {
     private boolean availability;
     private GymDto gym;
     private String specialty;
-    private String profilePicture;
+    private byte[] profilePicture;
 }

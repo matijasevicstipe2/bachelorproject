@@ -60,7 +60,7 @@ public class GymServiceImpl implements GymService {
                 .address(gym.getAddress())
                 .cityState(gym.getCityState())
                 .openingHours(gym.getOpeningHours())
-                .profilePicture(gym.getProfilePicturePath())
+                .profilePicture(gym.getProfilePicture())
                 .build();
     }
 

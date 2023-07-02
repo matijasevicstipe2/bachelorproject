@@ -1,6 +1,5 @@
 package hr.smatijasevic.bachelorproject.security.user;
 
-import hr.smatijasevic.bachelorproject.groupclass.GroupClass;
 import hr.smatijasevic.bachelorproject.membership.MembershipOption;
 import hr.smatijasevic.bachelorproject.qr.QRCode;
 import hr.smatijasevic.bachelorproject.qr.QRCodeService;
@@ -16,6 +15,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;
+
+import static hr.smatijasevic.bachelorproject.UtilsController.decompressImage;
 
 @RestController
 @RequestMapping("/api")
@@ -34,8 +35,12 @@ public class UserController {
         if ( accountOptional.isPresent()) {
             UserDetails userDetails = userDetailsService.getUserDetailsByAccount(accountOptional.get());
             byte[] qrCode = qrCodeService.getQRCodeByAccount(accountOptional.get()).map(QRCode::getCode).orElse(null);
+            byte[] image = null;
+            if (accountOptional.get().getProfilePicture() != null) {
+                image = decompressImage(accountOptional.get().getProfilePicture());
+            }
             UserDto user = UserDto.builder()
-                    .profilePicture(accountOptional.get().getProfilePicture())
+                    .profilePicture(image)
                     .firstName(accountOptional.get().getFirstName())
                     .lastName(accountOptional.get().getLastName())
                     .qrCode(qrCode)

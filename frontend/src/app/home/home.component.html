@@ -5,7 +5,8 @@
         <div class="row">
           <div class="col-6">
             <!-- User profile picture -->
-            <img [src]="user.profilePicture" alt="Profile Picture">
+            <img [src]="user.profilePicture ? ('data:image/png;base64,' + user.profilePicture) : 'assets/images/blank.png'"
+                 alt="Profile Picture" class="profile-image">
             <!-- Button for changing profile picture -->
             <button class="btn btn-primary" (click)="uploadProfilePicture()">Change Picture</button>
             <!-- Firstname and Lastname -->
@@ -32,7 +33,7 @@
           </strong>
         </p>
         <!-- Name of the membership -->
-        <p class="text-center">Membership: {{ user.membership }}</p>
+        <p *ngIf="user.daysLeft >= 0" class="text-center">Membership: {{ user.membership }}</p>
       </div>
     </div>
   </div>

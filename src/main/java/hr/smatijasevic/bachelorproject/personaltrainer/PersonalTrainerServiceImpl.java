@@ -55,7 +55,7 @@ public class PersonalTrainerServiceImpl implements PersonalTrainerService {
                 .availability(personalTrainer.isAvailability())
                 .gym(gymService.convertToGymDto(personalTrainer.getGym()))
                 .specialty(personalTrainer.getSpeciality())
-                .profilePicture(personalTrainer.getProfilePicturePath())
+                .profilePicture(personalTrainer.getProfilePicture())
                 .build();
     }
 }

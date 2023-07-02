@@ -9,5 +9,5 @@ export interface Trainer {
   availability: boolean;
   gym: Gym;
   specialty: string;
-  profilePicture: string;
+  profilePicture: ArrayBuffer | string | null;
 }

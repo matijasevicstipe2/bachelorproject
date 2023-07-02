@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Trainer} from "./trainer";
 import {TrainerService} from "./trainer.service";
 
@@ -7,7 +7,7 @@ import {TrainerService} from "./trainer.service";
   templateUrl: './one-on-one-training.component.html',
   styleUrls: ['./one-on-one-training.component.css']
 })
-export class OneOnOneTrainingComponent {
+export class OneOnOneTrainingComponent implements OnInit {
   trainers: Trainer[] = [];
 
   constructor(private trainerService: TrainerService) { }

@@ -33,8 +33,9 @@ public class Gym {
     @Column(name = "opening_hours")
     private String openingHours;
 
-    @Column(name = "profile_picture_path")
-    private String profilePicturePath;
+    @Lob
+    @Column(name = "profilepicture")
+    private byte[] profilePicture;
 
     @OneToMany(mappedBy = "gym", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PersonalTrainer> personalTrainers = new ArrayList<>();

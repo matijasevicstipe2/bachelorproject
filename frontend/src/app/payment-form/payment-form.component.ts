@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Stripe, StripeCardElement, StripeElements, loadStripe } from '@stripe/stripe-js';
-import { ActivatedRoute } from '@angular/router';
-import { MembershipOption } from "../membership/membership-option";
-import { HttpHeaders } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {loadStripe} from '@stripe/stripe-js';
+import {ActivatedRoute} from '@angular/router';
+import {MembershipOption} from "../membership/membership-option";
 import {AuthenticationService} from "../security/authentication.service";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-payment-form',
@@ -27,6 +27,11 @@ export class PaymentFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    loadStripe('pk_test_51NFiiGJoBfdHZHS3XTtMO3VjzFCemXOU5S3v6Fw3X1phgeTb0WV5hvNBsX9kbBYh9cFoJfex1le2UoWXoAWVYWoa009VeU263u')
+      .then(stripe => {
+      (<any>window).Stripe = stripe;
+    });
+
     this.paymentForm = this.fb.group({
       cardNumber: ['', Validators.required],
       expiry: ['', Validators.required],
@@ -70,10 +75,10 @@ export class PaymentFormComponent implements OnInit {
     const cvc = this.paymentForm.get('cvc')?.value;
 
     (<any>window).Stripe.card.createToken({
-      number: cardNumber.value,
-      exp_month: expMonth.value,
-      exp_year: expYear.value,
-      cvc: cvc.value
+      number: cardNumber,
+      exp_month: expMonth,
+      exp_year: expYear,
+      cvc: cvc
     }, (status: number, response: any) => {
       if (status === 200) {
         const token = response.id;
@@ -100,7 +105,7 @@ export class PaymentFormComponent implements OnInit {
 
   chargeCard(paymentRequest: any) {
     this.http.post(this.backendUrl + '/api/pay', paymentRequest)
-      .subscribe(resp => {
+      .subscribe((resp: any) => {
         console.log(resp);
       })
   }
