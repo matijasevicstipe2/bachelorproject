@@ -12,25 +12,27 @@ export class StatsComponent implements OnInit {
   private backendUrl = 'http://localhost:8080';
   gymStats: GymStatsDto = {};
   gymVisits: GymVisitDto[] = [];
-  selectedGymId: number | null = null;
+  selectedGymId: string;
   editSessionIndex: number | null = null;
   editedTitle: string | undefined = '';
   editedNotes: string | undefined = '';
   gyms: Gym[] = [];
 
   constructor(private http: HttpClient,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService) {
+    this.selectedGymId = ""
+  }
 
   ngOnInit(): void {
+    this.fetchGyms();
     this.fetchGymStats();
     this.fetchGymVisits();
-    this.fetchGyms();
   }
 
   fetchGymStats(): void {
-    const apiUrl = '/api/stats?username=';
     const username = this.authService.getAuthenticatedUserUsername();
-    this.http.get<GymStatsDto>(this.backendUrl + apiUrl + `${username}`).subscribe(
+    const apiUrl = '/api/stats?username=' + (username) + '&gymId=' + (this.selectedGymId || '');
+    this.http.get<GymStatsDto>(this.backendUrl + apiUrl).subscribe(
       (response: GymStatsDto) => {
         this.gymStats = response;
       },
@@ -41,8 +43,8 @@ export class StatsComponent implements OnInit {
   }
 
   fetchGymVisits(): void {
-    // Replace the URL with your backend API endpoint for fetching gym visits
-    const apiUrl = '/api/visits?username=username&gymId=' + (this.selectedGymId || '');
+    const username = this.authService.getAuthenticatedUserUsername();
+    const apiUrl = '/api/visits?username=' + (username) + '&gymId=' + (this.selectedGymId || '');
 
     this.http.get<GymVisitDto[]>(this.backendUrl + apiUrl).subscribe(
       (response: GymVisitDto[]) => {

@@ -6,4 +6,5 @@ export interface UserDto {
   qrCodebase64: string;
   daysLeft: number;
   membership: string;
+  active: boolean;
 }

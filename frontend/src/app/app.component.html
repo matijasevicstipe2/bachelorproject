@@ -10,17 +10,17 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/stats">Your Stats</a>
+        <li class="nav-item" [ngClass]="{'disabled-link': !user.active}">
+          <a class="nav-link" [routerLink]="['/stats']">Your Stats</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/find-gym">Find Your Gym</a>
+        <li class="nav-item" [ngClass]="{'disabled-link': !user.active}">
+          <a class="nav-link" [routerLink]="['/find-gym']">Find Your Gym</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/one-on-one-training">One-on-One Training</a>
+        <li class="nav-item" [ngClass]="{'disabled-link': !user.active}">
+          <a class="nav-link" [routerLink]="['/one-on-one-training']">One-on-One Training</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/group-classes">Group Classes</a>
+        <li class="nav-item" [ngClass]="{'disabled-link': !user.active}">
+          <a class="nav-link" [routerLink]="['/group-classes']">Group Classes</a>
         </li>
       </ul>
       <ul class="navbar-nav">
@@ -37,7 +37,3 @@
     </div>
   </div>
 </nav>
-
-<div class="container">
-  <router-outlet></router-outlet>
-</div>

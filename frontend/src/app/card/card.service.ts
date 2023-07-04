@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import {PaymentResponse} from "./paymentResponse";
 
 /**
  * Handles stripe card operations
@@ -29,6 +30,6 @@ export class CardService {
       user,
       option
     };
-    return this.httpClient.post<string>(`${environment.baseUrl}/pay`, chargeRequest, { headers: this.headers });
+    return this.httpClient.post<PaymentResponse>(`${environment.baseUrl}/pay`, chargeRequest, { headers: this.headers });
   }
 }

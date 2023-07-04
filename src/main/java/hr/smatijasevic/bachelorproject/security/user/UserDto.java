@@ -13,4 +13,5 @@ public class UserDto {
     private String qrCodeBase64;
     private long daysLeft;
     private String membership;
+    private boolean active;
 }

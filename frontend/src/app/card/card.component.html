@@ -13,10 +13,10 @@
   </div>
   <div *ngIf="charge" class="alert alert-success">
     <h5>Successfully Created Charge</h5>
-    <p>Charge Id: {{ charge.id }}</p>
+    <p>Payment successful!</p>
   </div>
   <div *ngIf="chargeError" class="alert alert-danger">
     <h5>A Stripe Error Occurred</h5>
-    <p>{{ chargeError.error }}</p>
+    <p></p>
   </div>
 </div>

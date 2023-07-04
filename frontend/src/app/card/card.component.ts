@@ -6,6 +6,7 @@ import {MembershipOption} from "../membership/membership-option";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute} from "@angular/router";
 import {AuthenticationService} from "../security/authentication.service";
+import {PaymentResponse} from "./paymentResponse";
 
 declare var Stripe: any;
 
@@ -77,10 +78,11 @@ export class CardComponent implements OnInit {
     this.cardService
       .createCharge(token, this.membershipOption.fee, 'usd', this.membershipOption.description, username, this.optionId)
       .subscribe({
-        next: (response: string) => {
-         console.log(response)
+        next: (response: PaymentResponse) => {
+          this.charge = response.charge;
         },
         error: (error: any) => {
+          this.chargeError = error;
       console.log("Error:", JSON.stringify(error));
     }
 

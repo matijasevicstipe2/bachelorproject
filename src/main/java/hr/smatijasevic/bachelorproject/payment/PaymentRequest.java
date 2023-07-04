@@ -14,6 +14,8 @@ public class PaymentRequest {
     private Long amount;
     private String currency;
     private String description;
+    private String user;
+    private Long option;
 
 }
 

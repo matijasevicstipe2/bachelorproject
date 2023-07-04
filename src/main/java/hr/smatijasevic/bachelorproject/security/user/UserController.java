@@ -46,6 +46,7 @@ public class UserController {
                     .qrCode(qrCode)
                     .qrCodeBase64(Base64.getEncoder().encodeToString(qrCode))
                     .daysLeft(checkMembershipDays(userDetails, LocalDateTime.now()))
+                    .active(userDetails.isActive())
                     .build();
             if (userDetails.getMembershipOption() != null) {
                  user.setMembership(userDetails.getMembershipOption().getName());

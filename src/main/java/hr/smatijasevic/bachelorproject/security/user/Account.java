@@ -58,6 +58,9 @@ public class Account implements UserDetails {
   @BatchSize(size = 20)
   private Set<Authority> authorities = new HashSet<>();
 
+  @Transient
+  private String stripeCustomerId;
+
 
   @Override
   public String getPassword() {
@@ -177,5 +180,13 @@ public class Account implements UserDetails {
 
   public void setAuthorities(Set<Authority> authorities) {
     this.authorities = authorities;
+  }
+
+  public String getStripeCustomerId() {
+    return stripeCustomerId;
+  }
+
+  public void setStripeCustomerId(String stripeCustomerId) {
+    this.stripeCustomerId = stripeCustomerId;
   }
 }

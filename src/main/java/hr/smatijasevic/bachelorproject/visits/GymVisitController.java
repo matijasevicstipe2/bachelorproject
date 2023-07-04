@@ -37,8 +37,8 @@ public class GymVisitController {
                 GymVisitDto gymVisitDto = GymVisitDto.builder()
                         .enterTime(gymVisit.getEnterTime())
                         .exitTime(gymVisit.getExitTime())
-                        .title(gymVisit.getSessionDetails().getTitle())
-                        .notes(gymVisit.getSessionDetails().getNotes())
+                        .title(gymVisit.getSessionDetails() != null ? gymVisit.getSessionDetails().getTitle() : null)
+                        .notes(gymVisit.getSessionDetails() != null ? gymVisit.getSessionDetails().getNotes() : null)
                         .build();
                 gymVisitDtos.add(gymVisitDto);
             }

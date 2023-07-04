@@ -29,8 +29,10 @@ import java.util.Optional;
 public class QRController {
 
     // Encryption parameters
-    private static final String key = "91eef5e40b3d00128bc4a685b03be158";
-    private static final String iv = "091354769e141411d9d2784ebe73231a";
+    byte[] key = {(byte)0x91, (byte)0xee, (byte)0xf5, (byte)0xe4, 0x0b, (byte)0x3d, 0x00, 0x12, (byte)0x8b, (byte)0xc4, (byte)0xa6, (byte)0x85, (byte)0xb0, 0x3b, (byte)0xe1, 0x58};
+    byte[] iv = {0x09, 0x13, 0x54, 0x76, (byte)0x9e, 0x14, 0x14, 0x11, (byte)0xd9, (byte)0xd2, 0x78, 0x4e, (byte)0xbe, (byte)0x73, 0x23, 0x1a};
+
+
     private final QRCodeService qrCodeService;
     private final AccountRepository accountRepository;
     private final UserDetailsService userDetailsService;
@@ -48,12 +50,12 @@ public class QRController {
         System.out.println("Encrypted data: " + data);
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "AES");
-            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
             byte[] decodedData = Base64.getDecoder().decode(data);
             byte[] decryptedData = cipher.doFinal(decodedData);
-            decryptedQR = new String(decryptedData);
+            decryptedQR = new String(decryptedData, StandardCharsets.UTF_8);
 
             System.out.println("Decrypted data: " + decryptedQR);
         } catch (Exception e) {
@@ -77,6 +79,7 @@ public class QRController {
                             currentVisit.setExitTime(dateTime);
                             gymVisitService.saveGymVisit(currentVisit);
                             details.setInGym(false);
+                            userDetailsService.saveUserDetails(details);
                             return "GYM EXIT";
                         } else {
                             GymVisit currentVisit = GymVisit.builder()
@@ -86,6 +89,7 @@ public class QRController {
                                     .build();
                             gymVisitService.saveGymVisit(currentVisit);
                             details.setInGym(true);
+                            userDetailsService.saveUserDetails(details);
                             return "GYM ENTER";
                         }
                     } else {
