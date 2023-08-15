@@ -6,10 +6,10 @@
         <h5 class="card-title">Gym Stats</h5>
         <p>Days and hours spent:</p>
         <ul>
-          <li>This Week: {{ gymStats.visitsWeek }} days, {{ gymStats.visitsWeekHours }} hours {{ gymStats.visitsWeekMin }} minutes</li>
-          <li>This Month: {{ gymStats.visitsMonth }} days, {{ gymStats.visitsMonthHours }} hours {{ gymStats.visitsMonthMin }} minutes</li>
-          <li>This Year: {{ gymStats.visitsYear }} days, {{ gymStats.visitsYearHours }} hours {{ gymStats.visitsYearMin }} minutes</li>
-          <li>Total: {{ gymStats.visitsTotal }} days, {{ gymStats.visitsTotalHours }} hours {{ gymStats.visitsTotalMin }} minutes</li>
+          <li>This Week: {{ gymStats.visitsWeek }} visits, {{ gymStats.visitsWeekHours }} hours {{ gymStats.visitsWeekMin }} minutes {{gymStats.visitsWeekSec}} seconds</li>
+          <li>This Month: {{ gymStats.visitsMonth }} visits, {{ gymStats.visitsMonthHours }} hours {{ gymStats.visitsMonthMin }} minutes {{gymStats.visitsMonthSec}} seconds</li>
+          <li>This Year: {{ gymStats.visitsYear }} visits, {{ gymStats.visitsYearHours }} hours {{ gymStats.visitsYearMin }} minutes {{gymStats.visitsYearSec}} seconds</li>
+          <li>Total: {{ gymStats.visitsTotal }} visits, {{ gymStats.visitsTotalHours }} hours {{ gymStats.visitsTotalMin }} minutes {{gymStats.visitsTotalSec}} seconds</li>
         </ul>
       </div>
     </div>

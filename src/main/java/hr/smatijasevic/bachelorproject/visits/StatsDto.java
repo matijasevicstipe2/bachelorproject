@@ -18,5 +18,9 @@ public class StatsDto {
     private Long visitsMonthMin;
     private Long visitsYearMin;
     private Long visitsTotalMin;
+    private Long visitsWeekSec;
+    private Long visitsMonthSec;
+    private Long visitsYearSec;
+    private Long visitsTotalSec;
 
 }

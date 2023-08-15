@@ -1,8 +1,5 @@
 package hr.smatijasevic.bachelorproject.groupclass;
 
-import hr.smatijasevic.bachelorproject.personaltrainer.PersonalTrainer;
-import hr.smatijasevic.bachelorproject.personaltrainer.TrainerDto;
-
 import java.util.List;
 
 public interface GroupClassService {

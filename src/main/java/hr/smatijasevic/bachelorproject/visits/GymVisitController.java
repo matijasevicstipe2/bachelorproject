@@ -35,6 +35,7 @@ public class GymVisitController {
             }
             for (GymVisit gymVisit : gymVisits) {
                 GymVisitDto gymVisitDto = GymVisitDto.builder()
+                        .id(gymVisit.getId())
                         .enterTime(gymVisit.getEnterTime())
                         .exitTime(gymVisit.getExitTime())
                         .title(gymVisit.getSessionDetails() != null ? gymVisit.getSessionDetails().getTitle() : null)
@@ -66,8 +67,17 @@ public class GymVisitController {
         }
     }
 
+    @PutMapping("/update-visit")
+    public ResponseEntity<GymVisitDto> updateGymVisit(@RequestBody GymVisitDto updatedVisit) {
+        try {
+            gymVisitService.updateGymVisit(updatedVisit);
+            return ResponseEntity.status(HttpStatus.OK).body(updatedVisit);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new GymVisitDto());
+        }
+    }
+
     private StatsDto getStatistics(List<GymVisit> gymVisits) {
-        // Calculate statistics for this week, this month, this year, and total
         int visitsThisWeek = 0;
         int visitsThisMonth = 0;
         int visitsThisYear = 0;
@@ -83,19 +93,16 @@ public class GymVisitController {
             LocalDateTime exitTime = gymVisit.getExitTime();
             Duration duration = Duration.between(enterTime, exitTime);
 
-            // Calculate week statistics
             if (enterTime.isAfter(LocalDateTime.now().minusWeeks(1))) {
                 visitsThisWeek++;
                 durationThisWeek = durationThisWeek.plus(duration);
             }
 
-            // Calculate month statistics
             if (enterTime.isAfter(LocalDateTime.now().minusMonths(1))) {
                 visitsThisMonth++;
                 durationThisMonth = durationThisMonth.plus(duration);
             }
 
-            // Calculate year statistics
             if (enterTime.isAfter(LocalDateTime.now().minusYears(1))) {
                 visitsThisYear++;
                 durationThisYear = durationThisYear.plus(duration);
@@ -106,17 +113,21 @@ public class GymVisitController {
 
         long hoursThisWeek = durationThisWeek.toHours();
         long minutesThisWeek = durationThisWeek.toMinutesPart();
+        long secondsThisWeek = durationThisWeek.toSecondsPart();
         long hoursThisMonth = durationThisMonth.toHours();
         long minutesThisMonth = durationThisMonth.toMinutesPart();
+        long secondsThisMonth = durationThisMonth.toSecondsPart();
         long hoursThisYear = durationThisYear.toHours();
         long minutesThisYear = durationThisYear.toMinutesPart();
+        long secondsThisYear = durationThisYear.toSecondsPart();
         long totalHours = totalDuration.toHours();
         long totalMinutes = totalDuration.toMinutesPart();
+        long totalSeconds = totalDuration.toSecondsPart();
 
-        System.out.println("This Week: " + visitsThisWeek + " visits, " + hoursThisWeek + " hours " + minutesThisWeek + " minutes");
-        System.out.println("This Month: " + visitsThisMonth + " visits, " + hoursThisMonth + " hours " + minutesThisMonth + " minutes");
-        System.out.println("This Year: " + visitsThisYear + " visits, " + hoursThisYear + " hours " + minutesThisYear + " minutes");
-        System.out.println("Total: " + totalVisits + " visits, " + totalHours + " hours " + totalMinutes + " minutes");
+        System.out.println("This Week: " + visitsThisWeek + " visits, " + hoursThisWeek + " hours " + minutesThisWeek + " minutes " + secondsThisWeek + " seconds");
+        System.out.println("This Month: " + visitsThisMonth + " visits, " + hoursThisMonth + " hours " + minutesThisMonth + " minutes " + secondsThisMonth + " seconds");
+        System.out.println("This Year: " + visitsThisYear + " visits, " + hoursThisYear + " hours " + minutesThisYear + " minutes " + secondsThisYear + " seconds");
+        System.out.println("Total: " + totalVisits + " visits, " + totalHours + " hours " + totalMinutes + " minutes " + totalSeconds + " seconds");
         return StatsDto.builder()
                 .visitsWeek(visitsThisWeek)
                 .visitsMonth(visitsThisMonth)
@@ -124,12 +135,16 @@ public class GymVisitController {
                 .visitsTotal(totalVisits)
                 .visitsWeekHours(hoursThisWeek)
                 .visitsWeekMin(minutesThisWeek)
+                .visitsWeekSec(secondsThisWeek)
                 .visitsMonthHours(hoursThisMonth)
                 .visitsMonthMin(minutesThisMonth)
+                .visitsMonthSec(secondsThisMonth)
                 .visitsYearHours(hoursThisYear)
                 .visitsYearMin(minutesThisYear)
+                .visitsYearSec(secondsThisYear)
                 .visitsTotalHours(totalHours)
                 .visitsTotalMin(totalMinutes)
+                .visitsTotalSec(totalSeconds)
                 .build();
     }
 }

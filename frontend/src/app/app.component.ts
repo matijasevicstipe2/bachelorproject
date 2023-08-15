@@ -20,7 +20,9 @@ export class AppComponent {
     private router: Router,
     private http: HttpClient
   ) {
-    this.fetchUserInfo();
+    if (authenticationService.isUserAuthenticated()) {
+      this.fetchUserInfo();
+    }
   }
 
   fetchUserInfo() {

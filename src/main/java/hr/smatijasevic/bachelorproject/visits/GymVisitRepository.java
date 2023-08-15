@@ -22,8 +22,8 @@ public interface GymVisitRepository extends JpaRepository<GymVisit, Long> {
     @Query("SELECT gv FROM GymVisit gv WHERE gv.user.account.id = :accountId AND gv.gym.id = :gymId AND gv.enterTime >= :startOfDay AND gv.enterTime < :startOfNextDay AND gv.exitTime IS NULL")
     List<GymVisit> findAccountVisits(@Param("accountId") Integer accountId,
                                      @Param("gymId") Long gymId,
-                                     @Param("startOfDay") Timestamp startOfDay,
-                                     @Param("startOfNextDay") Timestamp startOfNextDay);
+                                     @Param("startOfDay") LocalDateTime startOfDay,
+                                     @Param("startOfNextDay") LocalDateTime startOfNextDay);
 
     @Query("SELECT gv.gym.id, COUNT(gv) AS peopleCount " +
             "FROM GymVisit gv " +

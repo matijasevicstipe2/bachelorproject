@@ -19,7 +19,7 @@ public class AuthenticationController {
   private final AuthenticationService service;
 
   @PostMapping("/account")
-  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws NoSuchAlgorithmException, IOException, WriterException {
+  public ResponseEntity<RegisterResponse> register(@RequestBody RegisterRequest request) throws Exception {
     return ResponseEntity.status(HttpStatus.CREATED)
                          .body(service.register(request));
   }

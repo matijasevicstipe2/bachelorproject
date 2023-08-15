@@ -19,8 +19,15 @@ export class FindGymComponent implements OnInit {
 
   ngOnInit() {
     this.gymService.getUpdatedPeopleInGym(5000).subscribe(data => {
-      this.peopleInGym = data;
+      const newMap: Map<number, number> = new Map();
+      data.forEach((value, key) => {
+        newMap.set(key, value);
+      });
+      console.log(newMap);
+      this.peopleInGym = newMap;
+      this.linkGymsWithPeopleInGym();
     });
+
 
     this.fetchGyms();
   }
@@ -38,6 +45,7 @@ export class FindGymComponent implements OnInit {
   }
 
   linkGymsWithPeopleInGym() {
+    console.log("wqw")
     for (const gym of this.gyms) {
       const gymId = gym.id;
       if (this.peopleInGym.has(gymId)) {

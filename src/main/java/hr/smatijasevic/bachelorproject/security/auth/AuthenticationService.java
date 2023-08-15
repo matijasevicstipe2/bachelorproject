@@ -1,9 +1,9 @@
 package hr.smatijasevic.bachelorproject.security.auth;
 
 
-import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
+import hr.smatijasevic.bachelorproject.email.EmailService;
 import hr.smatijasevic.bachelorproject.qr.QRCode;
 import hr.smatijasevic.bachelorproject.qr.QRCodeService;
 import hr.smatijasevic.bachelorproject.security.config.JwtService;
@@ -18,8 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 
@@ -33,9 +31,10 @@ public class AuthenticationService {
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
   private final QRCodeService qrCodeService;
+  private final EmailService emailService;
   public static final String ALLOWED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-  public RegisterResponse register(RegisterRequest request) throws NoSuchAlgorithmException, IOException, WriterException {
+  public RegisterResponse register(RegisterRequest request) throws Exception {
     Optional<Account> account = repository.findByUsername(request.getUsername());
     if (account.isPresent()) {
       return new RegisterResponse();
@@ -78,6 +77,12 @@ public class AuthenticationService {
             .code(qrCodeData)
             .build();
     qrCodeService.saveQRCode(qrCode);
+
+    emailService.sendEmailQRCode("", "Account created",
+            """
+                    Welcome to our community!\s
+
+                    Here is your QR Code:\s""", qrCodeData);
 
     return new RegisterResponse(acc.getUsername());
   }

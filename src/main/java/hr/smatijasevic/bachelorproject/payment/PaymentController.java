@@ -46,7 +46,7 @@ public class PaymentController {
         String currency = paymentRequest.getCurrency();
         String description = paymentRequest.getDescription();
         String username = paymentRequest.getUser();
-        Long option = 0L;
+        Long option = paymentRequest.getOption();
         Stripe.apiKey = stripeSecretKey;
 
         Optional<Account> acc = accountRepository.findByUsername(username);
@@ -87,7 +87,6 @@ public class PaymentController {
                 account.setStripeCustomerId(customer.getId());
                 accountRepository.save(account);
             }
-
             Charge charge = chargeCustomerCard(customer.getId(), amount, currency, description);
             System.out.println(charge);
 

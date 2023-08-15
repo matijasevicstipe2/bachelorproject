@@ -69,10 +69,10 @@ public class UserController {
                         .getCountByAccountAndEnterTimeAfter(details.getAccount(), details.getPaymentDate());
             } else {
                 if (membership.getDuration() == 365) {
-                    days = Duration.between(details.getPaymentDate().plusYears(1), dateTime).toDays();
+                    days = Duration.between(dateTime, details.getPaymentDate().plusYears(1)).toDays();
 
                 } else {
-                    days = Duration.between(details.getPaymentDate().plusMonths(1), dateTime).toDays();
+                    days = Duration.between(dateTime, details.getPaymentDate().plusMonths(1)).toDays();
                 }
             }
         }

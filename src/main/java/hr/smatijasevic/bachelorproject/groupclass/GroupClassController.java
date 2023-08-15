@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -42,7 +44,7 @@ public class GroupClassController {
     }
 
     @PostMapping("/join-group-class")
-    public ResponseEntity<String> joinGroupClass(@RequestParam Long userId, @RequestParam Long groupClassId) {
+    public ResponseEntity<String> joinGroupClass(@RequestParam Long userId, @RequestParam Long groupClassId) throws MessagingException, IOException {
         // Check if the maximum number of people is reached for the group class
         int currentUsers = groupClassService.countUsersByGroupClassId(groupClassId);
         Long maxPeople = groupClassService.findMaxPeopleByGroupClassId(groupClassId);

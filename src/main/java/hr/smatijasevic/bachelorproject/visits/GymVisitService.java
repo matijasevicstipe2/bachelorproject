@@ -16,5 +16,6 @@ public interface GymVisitService {
     List<GymVisit> getByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     int getCountByAccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     List<GymVisit> getAccountVisits(Integer accountId, Long gymId, LocalDate date);
+    void updateGymVisit(GymVisitDto updatedVisit);
 
 }

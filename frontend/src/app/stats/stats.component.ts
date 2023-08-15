@@ -89,6 +89,7 @@ export class StatsComponent implements OnInit {
   saveChanges(): void {
     if (this.editSessionIndex !== null) {
       const visit = this.gymVisits[this.editSessionIndex];
+      visit.id = this.gymVisits[this.editSessionIndex].id;
       visit.title = this.editedTitle;
       visit.notes = this.editedNotes;
 
@@ -122,9 +123,14 @@ interface GymStatsDto {
   visitsYearMin?: number;
   visitsTotalHours?: number;
   visitsTotalMin?: number;
+  visitsWeekSec?: number;
+  visitsMonthSec?: number;
+  visitsYearSec?: number;
+  visitsTotalSec?: number;
 }
 
 interface GymVisitDto {
+  id?: number;
   enterTime?: string;
   exitTime?: string;
   title?: string;
