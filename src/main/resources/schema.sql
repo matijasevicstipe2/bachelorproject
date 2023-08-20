@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS accounts (
     address VARCHAR(255),
     citystate VARCHAR(255),
     profilepicture BLOB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    stripe_id VARCHAR(255)
     );
 
 CREATE TABLE IF NOT EXISTS authority (

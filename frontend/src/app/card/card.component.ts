@@ -10,10 +10,6 @@ import {PaymentResponse} from "./paymentResponse";
 
 declare var Stripe: any;
 
-/**
- * Simple UI to display Stripe.js card
- * @author Jonathan Miller <john@essolutions.io>
- */
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -66,10 +62,6 @@ export class CardComponent implements OnInit {
     );
   }
 
-  /**
-   * Submits the Stripe token to the backend and creates a charge
-   * @param token The Stripe.js token
-   */
   public createCharge(token: any) {
 
     const username = this.authService.getAuthenticatedUserUsername();
@@ -89,9 +81,6 @@ export class CardComponent implements OnInit {
   });
   }
 
-  /**
-   * Gets a Stripe token from the Stripe.js API
-   */
   public getToken() {
     this.stripe.createToken(this.card).then((result: any) => {
       if (result.error) {

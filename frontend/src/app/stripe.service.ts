@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-/**
- * Handles generic Stripe.js functions
- * @author Jonathan Miller <john@essolutions.io>
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +10,6 @@ export class StripeService {
 
   constructor() { }
 
-  /**
-   * Initializes the stripe api by loading it into the DOM
-   */
   public initializeStripe() {
     return new Observable((observer) => {
       const script = document.createElement('script');

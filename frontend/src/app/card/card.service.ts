@@ -3,10 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import {PaymentResponse} from "./paymentResponse";
 
-/**
- * Handles stripe card operations
- * @author Jonathan Miller <john@essolutions.io>
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -18,9 +14,6 @@ export class CardService {
     this.headers.set('Content-Type', 'application/json; charset=utf-8');
   }
 
-  /**
-   * Creates a charge from a Stripe.js token
-   */
   public createCharge(cardToken: any, amount: any, currency: any, description: any, user: any, option: number) {
     const chargeRequest = {
       token: cardToken.id,

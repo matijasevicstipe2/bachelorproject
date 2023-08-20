@@ -58,7 +58,7 @@ public class Account implements UserDetails {
   @BatchSize(size = 20)
   private Set<Authority> authorities = new HashSet<>();
 
-  @Transient
+  @Column(name = "stripe_id")
   private String stripeCustomerId;
 
 

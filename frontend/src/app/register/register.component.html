@@ -27,7 +27,8 @@
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" class="form-control" formControlName="email" required>
-                <div *ngIf="accountForm.get('email')?.invalid && (accountForm.get('email')?.dirty || accountForm.get('email')?.touched)" class="text-danger">
+                <div *ngIf="accountForm.get('email')?.invalid &&
+                (accountForm.get('email')?.dirty || accountForm.get('email')?.touched)" class="text-danger">
                   <div *ngIf="accountForm.get('email')?.errors?.['required']">Email is required.</div>
                   <div *ngIf="accountForm.get('email')?.errors?.['email']">Invalid email format.</div>
                 </div>

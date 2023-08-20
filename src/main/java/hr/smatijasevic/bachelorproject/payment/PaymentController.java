@@ -1,7 +1,7 @@
 package hr.smatijasevic.bachelorproject.payment;
 
 import com.stripe.Stripe;
-import com.stripe.exception.*;
+import com.stripe.exception.StripeException;
 import com.stripe.model.Card;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
@@ -18,12 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -74,9 +70,7 @@ public class PaymentController {
             Customer customer;
             if (account.getStripeCustomerId() != null) {
                 customer = Customer.retrieve(account.getStripeCustomerId());
-                // Check if the card already exists for the customer
                 if (!doesCardAlreadyExists(customer, token)) {
-                    // Create and add the new card to the customer's account
                     addCardToCustomer(customer, token);
                 }
             } else {
@@ -127,11 +121,10 @@ public class PaymentController {
         return false;
     }
 
-
     private void addCardToCustomer(Customer customer, String token) throws StripeException {
         Map<String, Object> sourceParams = new HashMap<>();
         sourceParams.put("source", token);
-        customer.getSources().create(sourceParams);
+        customer.update(sourceParams);
     }
 
     private Charge chargeCustomerCard(String customerId, Long amount, String currency, String description) throws StripeException {
