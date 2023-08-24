@@ -49,7 +49,8 @@ public class EmailServiceImpl implements EmailService {
 
     private static Credential getCredentials(final NetHttpTransport httpTransport, GsonFactory jsonFactory)
             throws IOException {
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, new InputStreamReader(EmailServiceImpl.class.getResourceAsStream("/client.json")));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory,
+                new InputStreamReader(EmailServiceImpl.class.getResourceAsStream("/client.json")));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 httpTransport, jsonFactory, clientSecrets, Set.of(GMAIL_SEND))
@@ -57,7 +58,8 @@ public class EmailServiceImpl implements EmailService {
                 .setAccessType("offline")
                 .build();
 
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8000).setCallbackPath("/callback").build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder()
+                .setPort(8000).setCallbackPath("/callback").build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 

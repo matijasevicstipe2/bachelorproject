@@ -23,11 +23,9 @@ export class FindGymComponent implements OnInit {
       data.forEach((value, key) => {
         newMap.set(key, value);
       });
-      console.log(newMap);
       this.peopleInGym = newMap;
       this.linkGymsWithPeopleInGym();
     });
-
 
     this.fetchGyms();
   }
@@ -45,13 +43,12 @@ export class FindGymComponent implements OnInit {
   }
 
   linkGymsWithPeopleInGym() {
-    console.log("wqw")
     for (const gym of this.gyms) {
       const gymId = gym.id;
       if (this.peopleInGym.has(gymId)) {
         gym.peopleInGym = this.peopleInGym.get(gymId);
       } else {
-        gym.peopleInGym = 0; // Default value if no people count is available
+        gym.peopleInGym = 0;
       }
     }
   }

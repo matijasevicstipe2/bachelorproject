@@ -23,8 +23,6 @@ export class GroupClassesComponent implements OnInit {
   groupClasses: GroupClass[] = [];
   calendarEvents: EventInput[] = [];
   calendarPlugins = [dayGridPlugin];
-  isEventSelected: boolean = false;
-  selectedEvent!: EventInput;
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridWeek',
@@ -109,7 +107,7 @@ export class GroupClassesComponent implements OnInit {
             start: formattedTime,
             end: newTimeString,
             duration: groupClass.duration + "min",
-            description: 'Join us for a high-energy workout session.'
+            description: 'Join us for a high energy workout session.'
         }
       }
       };

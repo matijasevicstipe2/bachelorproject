@@ -49,7 +49,6 @@ export class GymService {
     );
   }
 
-  // Call this method to stop the interval
   stopInterval() {
     this.stopInterval$.next();
   }

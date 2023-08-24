@@ -19,7 +19,8 @@ public interface GymVisitRepository extends JpaRepository<GymVisit, Long> {
     List<GymVisit> findByUser_AccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     int countByUser_AccountAndEnterTimeAfter(Account account, LocalDateTime dateTime);
     List<GymVisit> findByUser_AccountAndEnterTime(Account account, LocalDate entryDate);
-    @Query("SELECT gv FROM GymVisit gv WHERE gv.user.account.id = :accountId AND gv.gym.id = :gymId AND gv.enterTime >= :startOfDay AND gv.enterTime < :startOfNextDay AND gv.exitTime IS NULL")
+    @Query("SELECT gv FROM GymVisit gv WHERE gv.user.account.id = :accountId AND gv.gym.id = :gymId " +
+            "AND gv.enterTime >= :startOfDay AND gv.enterTime < :startOfNextDay AND gv.exitTime IS NULL")
     List<GymVisit> findAccountVisits(@Param("accountId") Integer accountId,
                                      @Param("gymId") Long gymId,
                                      @Param("startOfDay") LocalDateTime startOfDay,

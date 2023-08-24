@@ -20,6 +20,7 @@ import {RouterModule} from "@angular/router";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import {EventPopupComponent} from './event-popup/event-popup.component';
 import {CardComponent} from "./card/card.component";
+import { ExampleNameComponent } from './example-name/example-name.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {CardComponent} from "./card/card.component";
     OneOnOneTrainingComponent,
     HomeComponent,
     EventPopupComponent,
-    CardComponent
+    CardComponent,
+    ExampleNameComponent
   ],
   imports: [
     CommonModule,
