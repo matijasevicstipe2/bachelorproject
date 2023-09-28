@@ -21,6 +21,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
 import {EventPopupComponent} from './event-popup/event-popup.component';
 import {CardComponent} from "./card/card.component";
 import { ExampleNameComponent } from './example-name/example-name.component';
+import { CcComponent } from './cc/cc.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ExampleNameComponent } from './example-name/example-name.component';
     HomeComponent,
     EventPopupComponent,
     CardComponent,
-    ExampleNameComponent
+    ExampleNameComponent,
+    CcComponent
   ],
   imports: [
     CommonModule,
